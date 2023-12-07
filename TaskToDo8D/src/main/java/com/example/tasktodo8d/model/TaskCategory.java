@@ -9,6 +9,7 @@ public enum TaskCategory {
     SHOPPING("#8A2BE2"),     // Compras: Blue Violet
     REMINDERS("#FFA500");    // Recordatorios: Orange
     private final String color;
+
     TaskCategory(String color) {
         this.color = color;
     }

@@ -14,66 +14,71 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="parent" prefHeight="613.0" prefWidth="962.0" styleClass="primary-color" stylesheets="@../../../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tasktodo8d.controllers.ControllerTaskToDo">
+<AnchorPane fx:id="parent" prefHeight="613.0" prefWidth="1100.0" styleClass="primary-color" stylesheets="@../../../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tasktodo8d.controllers.ControllerTaskToDo">
    <children>
-      <BorderPane prefHeight="620.0" prefWidth="970.0">
+      <BorderPane fx:id="miPanel" layoutY="40.0" prefHeight="620.0" prefWidth="1100.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="880.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="99.0" prefWidth="823.0" BorderPane.alignment="CENTER" />
+         </top></BorderPane>
+      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1100.0">
+         <children>
+            <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" />
+            <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="180.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Add" />
+                <Menu mnemonicParsing="false" text="Consult" />
+                <Menu mnemonicParsing="false" text="Calendar" />
+              </menus>
+               <styleClass>
+                  <String fx:value="round-border" />
+                  <String fx:value="primary-color" />
+               </styleClass>
+            </MenuBar>
+            <ImageView fitHeight="23.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+            <AnchorPane prefHeight="40.0" prefWidth="330.0">
                <children>
-                  <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" />
-                  <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="180.0">
-                    <menus>
-                      <Menu mnemonicParsing="false" text="Add" />
-                      <Menu mnemonicParsing="false" text="Consult" />
-                      <Menu mnemonicParsing="false" text="Calendar" />
-                    </menus>
-                     <styleClass>
-                        <String fx:value="round-border" />
-                        <String fx:value="primary-color" />
-                     </styleClass>
-                  </MenuBar>
-                  <ImageView fitHeight="23.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
-                  <TextField fx:id="search" prefHeight="25.0" prefWidth="330.0" promptText="Search">
+                  <TextField fx:id="search" layoutX="6.0" layoutY="8.0" prefHeight="25.0" prefWidth="386.0" promptText="Search">
                      <styleClass>
                         <String fx:value="round-border" />
                         <String fx:value="primary-color" />
                      </styleClass>
                   </TextField>
-                  <DatePicker prefHeight="25.0" prefWidth="101.0" promptText="Date ">
-                     <styleClass>
-                        <String fx:value="text-color" />
-                        <String fx:value="date-cell" />
-                        <String fx:value="date-picker" />
-                     </styleClass>
-                  </DatePicker>
-                  <ImageView fx:id="searchImg" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="searchImg" fitHeight="23.0" fitWidth="26.0" focusTraversable="true" layoutX="366.0" layoutY="9.0" preserveRatio="true">
                      <image>
                         <Image url="@../../../icon/searchL.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="23.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="hour" prefHeight="27.0" prefWidth="124.0" styleClass="text-color" text="Label">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <AnchorPane prefHeight="26.0" prefWidth="33.0">
-                     <children>
-                        <ImageView fx:id="modeImg" fitHeight="38.0" fitWidth="30.0" layoutX="1.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../icon/modeL.png" />
-                           </image>
-                        </ImageView>
-                        <Button fx:id="mode" mnemonicParsing="false" onAction="#changeMode" opacity="0.0" prefHeight="33.0" prefWidth="30.0" textFill="TRANSPARENT" />
-                     </children>
-                  </AnchorPane>
                </children>
+            </AnchorPane>
+            <DatePicker prefHeight="25.0" prefWidth="138.0" promptText="Date ">
                <styleClass>
-                  <String fx:value="primary-color" />
-                  <String fx:value="third-color" />
+                  <String fx:value="text-color" />
+                  <String fx:value="date-cell" />
+                  <String fx:value="date-picker" />
                </styleClass>
-            </HBox>
-         </top>
-      </BorderPane>
+            </DatePicker>
+            <ImageView fitHeight="23.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="hour" prefHeight="27.0" prefWidth="124.0" styleClass="text-color" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <AnchorPane prefHeight="26.0" prefWidth="33.0">
+               <children>
+                  <ImageView fx:id="modeImg" fitHeight="40.0" fitWidth="33.0" layoutX="1.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../icon/modeL.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="mode" mnemonicParsing="false" onAction="#changeMode" opacity="0.0" prefHeight="40.0" prefWidth="33.0" textFill="TRANSPARENT" />
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+         <styleClass>
+            <String fx:value="primary-color" />
+            <String fx:value="third-color" />
+         </styleClass>
+      </HBox>
    </children>
 </AnchorPane>

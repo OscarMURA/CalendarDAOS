@@ -1,4 +1,6 @@
 package com.example.tasktodo8d.controllers;
 
-public class ControllerAddTask {
+public enum Mode {
+    LIGHT,
+    DARK
 }

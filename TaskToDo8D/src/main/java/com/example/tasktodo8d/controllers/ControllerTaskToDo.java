@@ -1,6 +1,8 @@
 package com.example.tasktodo8d.controllers;
 
+import com.example.tasktodo8d.AppTaskToDo;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,13 +12,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.application.Platform;
+import javafx.scene.layout.BorderPane;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class ControllerTaskToDo implements Initializable {
+public class ControllerTaskToDo implements Initializable,Modeable {
 
     @FXML
     private Button mode;
@@ -36,14 +40,18 @@ public class ControllerTaskToDo implements Initializable {
 
     @FXML
     private ImageView searchImg;
+    @FXML
+    private BorderPane miPanel;
 
-    private boolean isLight;
+    private static Mode isLight;
 
-    public boolean isLight() {
+
+
+    public static Mode isLight() {
         return isLight;
     }
 
-    public void setLight(boolean light) {
+    public void setLight(Mode light) {
         isLight = light;
     }
 
@@ -62,20 +70,24 @@ public class ControllerTaskToDo implements Initializable {
                 }
             }
         }).start();
-        isLight = false;
-
+        isLight = Mode.LIGHT;
+        try {
+            addTask();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void changeMode(){
-        isLight = !isLight;
-        if(isLight){
+        isLight = (isLight == Mode.LIGHT)?Mode.DARK:Mode.LIGHT;
+        if(isLight==Mode.LIGHT){
             setLightMode();
         }else{
             setDarkMode();
         }
     }
 
-    private void setLightMode(){
+     public void setLightMode(){
         parent.getStylesheets().clear();
         parent.getStylesheets().add(getClass().getResource("/styles/lightMode.css").toExternalForm());
         Image image = new Image(getClass().getResourceAsStream("/icon/searchL.png"));
@@ -86,7 +98,7 @@ public class ControllerTaskToDo implements Initializable {
     }
 
 
-    private void setDarkMode(){
+    public void setDarkMode(){
         parent.getStylesheets().clear();
         parent.getStylesheets().add(getClass().getResource("/styles/darkMode.css").toExternalForm());
         Image image = new Image(getClass().getResourceAsStream("/icon/searchD.png"));
@@ -94,6 +106,16 @@ public class ControllerTaskToDo implements Initializable {
         searchImg.setImage(image);
         modeImg.setImage(image2);
         menuBar.getStyleClass().add(getClass().getResource("/styles/menuDark.css").toExternalForm());
+    }
+
+    @FXML
+    public void addTask() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(AppTaskToDo.class.getResource("addTask.fxml"));
+        BorderPane root =(BorderPane) loader.load();
+        miPanel.getChildren().clear();
+        miPanel.setCenter(root);
+
     }
 
 

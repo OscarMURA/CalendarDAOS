@@ -13,6 +13,11 @@
     -fx-background-radius: 100;
     -fx-text-fill: #FFFFFF;
 }
+
+.round2-border {
+    -fx-background-radius: 20;
+    -fx-text-fill: #FFFFFF;
+}
 .text-color {
     -fx-text-fill: #FFFFFF
 }
@@ -82,5 +87,68 @@
     -fx-background-color: derive(#333333, 25%); /* Color de fondo al pasar el mouse sobre las celdas */
 }
 
+/* dark-mode.css */
+
+.combo-box {
+    -fx-text-fill: #FFFFFF;
+    -fx-control-inner-background: #333333; /* Color de fondo del cuadro combinado */
+    -fx-background-color: #555555; /* Color de fondo del desplegable */
+    -fx-background-radius: 5; /* Radio de borde del desplegable */
+    -fx-border-color: #555555; /* Color del borde del desplegable */
+    -fx-border-radius: 5; /* Radio de borde del desplegable */
+}
+
+.combo-box-popup {
+    -fx-background-color: #555555; /* Color de fondo del menú desplegable */
+    -fx-text-fill: #FFFFFF;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #555555; /* Color de fondo de los elementos del menú desplegable */
+    -fx-text-fill: #FFFFFF; /* Color del texto de los elementos del menú desplegable */
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: derive(#555555, 25%); /* Color de fondo al pasar el mouse sobre los elementos del menú desplegable */
+    -fx-text-fill: #FFFFFF;
+}
+
+
+.button {
+    -fx-background-color: #555555; /* Color de fondo del botón */
+    -fx-text-fill: #FFFFFF; /* Color del texto */
+    -fx-border-color: #555555; /* Color del borde del botón */
+    -fx-background-radius: 5; /* Radio de borde del botón */
+    -fx-border-radius: 5; /* Radio de borde del botón */
+}
+
+.button:hover {
+    -fx-background-color: derive(#555555, 25%); /* Color de fondo al pasar el mouse sobre el botón */
+}
+
+.text-area {
+    -fx-background-color: #383838; /* Color de fondo del área de texto */
+    -fx-text-fill: #FFFFFF; /* Color del texto */
+    -fx-control-inner-background: #383838; /* Color de fondo del contenido del área de texto */
+    -fx-border-color: #383838; /* Color del borde del área de texto */
+    -fx-background-radius: 7; /* Radio de borde del área de texto */
+    -fx-border-radius: 7; /* Radio de borde del área de texto */
+}
+
+.text-area:hover {
+    -fx-background-color: #444444; /* Color de fondo al pasar el mouse sobre el área de texto */
+}
+
+.radio-button {
+    -fx-background-color: #333333; /* Color de fondo del radio button */
+    -fx-text-fill: #FFFFFF; /* Color del texto */
+    -fx-border-color: #555555; /* Color del borde del radio button */
+    -fx-background-radius: 5; /* Radio de borde del radio button */
+    -fx-border-radius: 5; /* Radio de borde del radio button */
+}
+
+.radio-button:hover {
+    -fx-background-color: #444444; /* Color de fondo al pasar el mouse sobre el radio button */
+}
 
 
