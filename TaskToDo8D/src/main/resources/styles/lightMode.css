@@ -1,5 +1,7 @@
 .primary-color {
     -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000
+
 }
 .secondary-color {
     -fx-background-color: #E7E7E7;
@@ -9,4 +11,77 @@
 }
 .round-border {
     -fx-background-radius: 100;
+    -fx-text-fill: #000000
+}
+.text-color {
+    -fx-text-fill: #000000
+}
+
+
+.date-picker {
+    -fx-control-inner-background: #FFFFFF; /* Color de fondo del área del selector de fecha */
+    -fx-background-color: #F0F0F0; /* Color de fondo del DatePicker */
+    -fx-text-fill: #000000; /* Color del texto */
+}
+
+/* Cambiar el color de fondo del calendario emergente */
+.date-cell {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Cambiar el color de fondo de las fechas seleccionadas */
+.date-cell:selected {
+    -fx-background-color: #CCCCCC;
+}
+
+
+/* Estilo para el fondo de la MenuBar en modo claro */
+.menu-bar {
+    -fx-background-color: #f0f0f0; /* Puedes ajustar este color según tus preferencias */
+}
+
+/* Estilo para el texto en modo claro */
+.menu-bar .label {
+    -fx-text-fill: #000000; /* Color del texto en modo claro */
+}
+
+/* Estilo para los menús emergentes en modo claro */
+.menu-item {
+    -fx-background-color: #f0f0f0; /* Puedes ajustar este color según tus preferencias */
+}
+
+
+.rectangle {
+    -fx-fill: #F0F0F0; /* Color de relleno del rectángulo */
+    -fx-stroke: #CCCCCC; /* Color del borde del rectángulo */
+    -fx-stroke-width: 1; /* Ancho del borde del rectángulo */
+}
+
+
+/* light-mode.css */
+
+.table-view {
+    -fx-control-inner-background: #F0F0F0; /* Color de fondo de la tabla */
+    -fx-table-cell-border-color: #CCCCCC; /* Color del borde de las celdas */
+    -fx-table-header-border-color: #CCCCCC; /* Color del borde de las cabeceras de columna */
+    -fx-text-fill: #000000; /* Color del texto */
+}
+
+.table-column {
+    -fx-border-color: #CCCCCC; /* Color del borde de las columnas */
+    -fx-background-color: #CCCCCC; /* Color de fondo de las cabeceras de columna */
+    -fx-text-fill: #000000; /* Color del texto de las cabeceras de columna */
+}
+
+.table-row-cell {
+    -fx-cell-size: 30; /* Altura de las filas */
+    -fx-table-cell-border-color: #CCCCCC; /* Color del borde de las celdas */
+    -fx-background-color: #F0F0F0, #F0F0F0; /* Degradado de fondo de las celdas */
+    -fx-background-insets: 0, 1; /* Inset para el degradado de fondo */
+    -fx-background-radius: 5; /* Radio de borde de las celdas */
+    -fx-spacing: 5; /* Espaciado entre las filas */
+}
+
+.table-row-cell:hover {
+    -fx-background-color: derive(#F0F0F0, 25%); /* Color de fondo al pasar el mouse sobre las celdas */
 }
