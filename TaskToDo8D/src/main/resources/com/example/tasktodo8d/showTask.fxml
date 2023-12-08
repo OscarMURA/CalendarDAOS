@@ -19,12 +19,16 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1100.0" styleClass="primary-color" stylesheets="@../../../styles/darkMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tasktodo8d.controllers.Screens.ControllerAddTask">
+<BorderPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1100.0" styleClass="primary-color" stylesheets="@../../../styles/darkMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tasktodo8d.controllers.Screens.ControllerInitialShowTask">
    <top>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="158.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" styleClass="rectangle" width="779.0" />
-            <AnchorPane layoutX="816.0" layoutY="1.0" prefHeight="580.0" prefWidth="276.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="133.0" layoutX="35.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" width="1026.0">
+               <styleClass>
+                  <String fx:value="rectangle" />
+                  <String fx:value="round-border" />
+               </styleClass></Rectangle>
+            <AnchorPane layoutX="816.0" layoutY="1.0" prefHeight="580.0" prefWidth="276.0" visible="false">
                <styleClass>
                   <String fx:value="secondary-color" />
                   <String fx:value="round2-border" />
@@ -78,7 +82,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="addButtom" layoutX="99.0" layoutY="533.0" mnemonicParsing="false" onAction="#addTask" prefHeight="27.0" prefWidth="78.0" styleClass="text-color" text="Add" />
+                  <Button fx:id="addButtom" layoutX="99.0" layoutY="533.0" mnemonicParsing="false"  prefHeight="27.0" prefWidth="78.0" styleClass="text-color" text="Add" />
                   <TextArea fx:id="descriptions" layoutX="13.0" layoutY="344.0" prefHeight="152.0" prefWidth="250.0" promptText="Description" styleClass="primary-color" />
                   <RadioButton fx:id="periodicOption" layoutX="88.0" layoutY="174.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="104.0" text="Periodic Dates" />
                   <Label fx:id="endDate" disable="true" layoutX="155.0" layoutY="203.0" prefHeight="20.0" prefWidth="87.0" styleClass="text-color" text="End Date">
@@ -114,7 +118,7 @@
                      </image>
                   </ImageView>
                </children></AnchorPane>
-            <TableView fx:id="tableTask" layoutX="14.0" layoutY="185.0" prefHeight="369.0" prefWidth="780.0" styleClass="text-color">
+            <TableView fx:id="tableTask" layoutX="33.0" layoutY="178.0" prefHeight="376.0" prefWidth="1031.0" styleClass="text-color">
               <columns>
                   <TableColumn fx:id="titleTC" prefWidth="157.0" styleClass="text-color" text="Title" />
                   <TableColumn fx:id="dateTC" prefWidth="153.0" sortable="false" styleClass="text-color" text="Date" />
@@ -126,102 +130,98 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextArea fx:id="descriptionText" editable="false" layoutX="416.0" layoutY="36.0" prefHeight="126.0" prefWidth="270.0" />
-            <Label layoutX="416.0" layoutY="19.0" prefHeight="17.0" prefWidth="66.0" styleClass="text-color" text="Description:" />
-            <VBox layoutX="61.0" layoutY="27.0" prefHeight="134.0" prefWidth="328.0">
+            <TextArea fx:id="descriptionText" editable="false" layoutX="614.0" layoutY="39.0" prefHeight="96.0" prefWidth="298.0" />
+            <Label layoutX="614.0" layoutY="19.0" prefHeight="17.0" prefWidth="66.0" styleClass="text-color" text="Description:" />
+            <VBox layoutX="985.0" layoutY="29.0" prefHeight="105.0" prefWidth="35.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="303.0">
+                  <AnchorPane prefHeight="35.0" prefWidth="35.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="45.0" styleClass="text-color" text="Task:">
-                           <font>
-                              <Font size="19.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="titleLabel" prefHeight="30.0" prefWidth="284.0" styleClass="text-color" text="title">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="158.0">
-                     <children>
-                        <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Progress:" />
-                        <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="progressLabel" prefHeight="26.0" prefWidth="158.0" styleClass="text-color" text="Progress">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="158.0">
-                     <children>
-                        <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Category:" />
-                        <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="categoryLabel" prefHeight="26.0" prefWidth="160.0" styleClass="text-color" text="Category">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="158.0">
-                     <children>
-                        <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Periods:" />
-                        <Label fx:id="periodsLabel" prefHeight="26.0" prefWidth="183.0" styleClass="text-color" text="Periods">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="158.0">
-                     <children>
-                        <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Date:" />
-                        <Label fx:id="dateLabel" prefHeight="26.0" prefWidth="221.0" styleClass="text-color" text="Date">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox layoutX="730.0" layoutY="19.0" prefHeight="150.0" prefWidth="50.0">
-               <children>
-                  <AnchorPane prefHeight="50.0" prefWidth="50.0">
-                     <children>
-                        <ImageView fx:id="plusImg" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="plusImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../icon/plusD.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="plusBtn" mnemonicParsing="false" onAction="#selectAdd" opacity="0.0" prefHeight="50.0" prefWidth="50.0" />
+                        <Button fx:id="plusBtn" mnemonicParsing="false" onAction="#selectAdd" opacity="0.0" prefHeight="35.0" prefWidth="35.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="50.0" prefWidth="50.0">
+                  <AnchorPane prefHeight="35.0" prefWidth="35.0">
                      <children>
-                        <ImageView fx:id="editImg" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="editImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../icon/editD.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="editBtn" mnemonicParsing="false" onAction="#selectEdit" opacity="0.0" prefHeight="50.0" prefWidth="50.0" />
+                        <Button fx:id="editBtn" mnemonicParsing="false" onAction="#selectEdit" opacity="0.0" prefHeight="35.0" prefWidth="35.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="50.0" prefWidth="50.0">
+                  <AnchorPane prefHeight="40.0" prefWidth="40.0">
                      <children>
-                        <ImageView fx:id="removeImg" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="removeImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../icon/removeD.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="removeBtn" mnemonicParsing="false" onAction="#selectRemove" opacity="0.0" prefHeight="50.0" prefWidth="50.0" />
+                        <Button fx:id="removeBtn" mnemonicParsing="false" onAction="#selectRemove" opacity="0.0" prefHeight="35.0" prefWidth="35.0" />
                      </children>
                   </AnchorPane>
                </children>
             </VBox>
+            <HBox alignment="CENTER_LEFT" layoutX="87.0" layoutY="19.0" prefHeight="40.0" prefWidth="462.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="45.0" styleClass="text-color" text="Task:">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="titleLabel" prefHeight="30.0" prefWidth="412.0" styleClass="text-color" text="Label">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="75.0" layoutY="69.0" prefHeight="26.0" prefWidth="239.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Progress:" />
+                  <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="progressLabel" prefHeight="26.0" prefWidth="158.0" styleClass="text-color" text="Progress">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="75.0" layoutY="100.0" prefHeight="26.0" prefWidth="217.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Category:" />
+                  <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="categoryLabel" prefHeight="26.0" prefWidth="121.0" styleClass="text-color" text="Category">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="329.0" layoutY="69.0" prefHeight="26.0" prefWidth="243.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Periods:" />
+                  <Label fx:id="periodsLabel" prefHeight="26.0" prefWidth="183.0" styleClass="text-color" text="Periods">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="329.0" layoutY="100.0" prefHeight="26.0" prefWidth="263.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Date:" />
+                  <Label fx:id="dateLabel" prefHeight="26.0" prefWidth="200.0" styleClass="text-color" text="Date">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
          <styleClass>
             <String fx:value="primary-color" />

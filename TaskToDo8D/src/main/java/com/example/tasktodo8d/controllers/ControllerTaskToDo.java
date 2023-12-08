@@ -112,7 +112,7 @@ public class ControllerTaskToDo implements Initializable,Modeable {
     @FXML
     public void addTask() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(AppTaskToDo.class.getResource("addTask.fxml"));
+        loader.setLocation(AppTaskToDo.class.getResource("showTask.fxml"));
         BorderPane root =(BorderPane) loader.load();
         miPanel.getChildren().clear();
         miPanel.setCenter(root);
