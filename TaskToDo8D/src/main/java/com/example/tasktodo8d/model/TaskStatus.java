@@ -11,7 +11,8 @@ public enum TaskStatus {
         this.status = status;
         this.color = color;
     }
-    public String getStatus() {
+    @Override
+    public String toString() {
         return status;
     }
     public String getColor() {

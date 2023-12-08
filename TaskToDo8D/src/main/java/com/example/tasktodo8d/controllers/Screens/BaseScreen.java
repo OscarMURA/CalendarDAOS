@@ -10,11 +10,18 @@ import com.example.tasktodo8d.model.TaskStatus;
 import com.example.tasktodo8d.model.TimePeriod;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.css.converter.StringConverter;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class BaseScreen implements Modeable {
 
@@ -77,17 +84,12 @@ public class BaseScreen implements Modeable {
 
     @FXML
     protected TableColumn<Task, String> dateTC;
-
     @FXML
-    protected TableColumn<Task, TaskCategory> categoryTC;
-
-
+    protected TableColumn<Task, ?> categoryTC;
     @FXML
-    protected TableColumn<Task, TimePeriod> periodsTC;
-
+    protected TableColumn<Task, ?> periodsTC;
     @FXML
-    protected TableColumn<Task, TaskStatus> statusTC;
-
+    protected TableColumn<Task, ?> statusTC;
     @FXML
     protected TableView tableTask;
 
@@ -106,6 +108,16 @@ public class BaseScreen implements Modeable {
     protected Button editBtn;
     @FXML
     protected Button plusBtn;
+    @FXML
+    protected ImageView titleError;
+    @FXML
+    protected ImageView dateInitError;
+    @FXML
+    protected ImageView endDateError;
+    @FXML
+    protected ImageView hourError;
+
+    protected static Task taskShow;
 
     @Override
     public void changeMode(){
@@ -143,6 +155,7 @@ public class BaseScreen implements Modeable {
 
     protected void initCategoryOptions(){
         categoryOption.getItems().addAll("WORK", "PERSONAL", "HEALTH", "PROJECTS", "SHOPPING", "REMINDERS");
+        categoryOption.setValue("WORK");
     }
 
     protected void initHourOptions(){
@@ -153,6 +166,7 @@ public class BaseScreen implements Modeable {
                 "43","44","45","46","47","48","49","50","51","52","53","54","55","56","57",
                 "58","59");
         amPM.getItems().addAll("AM","PM");
+        amPM.setValue("AM");
     }
 
     protected void initPeriodOptions(){
@@ -172,26 +186,35 @@ public class BaseScreen implements Modeable {
     }
 
     protected void showTask(Task task){
-        titleLabel.setText(task.getName());
-        categoryLabel.setText(task.getCategory().toString());
-        dateLabel.setText(task.getDateString());
-        progressLabel.setText(task.getStatus().getStatus());
-        periodsLabel.setText(task.getTimePeriod().getDescription());
-        descriptionText.setText(task.getDescription());
+        if(task!=null){
+            titleLabel.setText(task.getName());
+            categoryLabel.setText(task.getCategory().toString());
+            dateLabel.setText(task.getDateString());
+            progressLabel.setText(task.getStatus().toString());
+            periodsLabel.setText(task.getTimePeriod().toString());
+            descriptionText.setText(task.getDescription());
+        }else{
+            titleLabel.setText("");
+            categoryLabel.setText("");
+            dateLabel.setText("");
+            progressLabel.setText("");
+            periodsLabel.setText("");
+            descriptionText.setText("");
+        }
     }
 
     protected void initShowTask(){
         ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
         if(!tasks.isEmpty()){
             Task task=tasks.get(0);
-            showTask(task);
+            this.taskShow=task;
         }
     }
 
     protected void selectionTask(){
         Task task=(Task) tableTask.getSelectionModel().getSelectedItem();
         if(task!=null){
-            showTask(task);
+            this.taskShow=task;
         }
     }
 
@@ -200,10 +223,34 @@ public class BaseScreen implements Modeable {
     }
 
     public void selectRemove(){
-        System.out.println("Remove");
+        if(taskShow!=null){
+            ControllerTasks.getInstance().Tasks().remove(taskShow);
+            taskShow=null;
+            updateTableTask();
+            initShowTask();
+        }
     }
 
     public void selectAdd(){
         System.out.println("Add");
+    }
+
+    protected void showAlert(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
+    protected void updateTableTask(){
+        ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
+        tableTask.setItems(tasks);
+        FilteredList<Task> filteredData = new FilteredList<>(tasks, p -> true);
+        titleTC.setCellValueFactory(new PropertyValueFactory("name"));
+        categoryTC.setCellValueFactory(new PropertyValueFactory("category"));
+        dateTC.setCellValueFactory(new PropertyValueFactory("dateString"));
+        statusTC.setCellValueFactory(new PropertyValueFactory("status"));
+        periodsTC.setCellValueFactory(new PropertyValueFactory("timePeriod"));
     }
 }

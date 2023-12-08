@@ -52,7 +52,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="dateInit" layoutX="11.0" layoutY="224.0" prefHeight="25.0" prefWidth="112.0" styleClass="text-color" />
+                  <DatePicker fx:id="dateInit" editable="false" layoutX="11.0" layoutY="224.0" prefHeight="25.0" prefWidth="112.0" styleClass="text-color" />
                   <Label layoutX="10.0" layoutY="141.0" prefHeight="20.0" prefWidth="41.0" styleClass="text-color" text="Hour:">
                      <font>
                         <Font size="14.0" />
@@ -72,7 +72,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="categoryOption" layoutX="75.0" layoutY="99.0" prefHeight="27.0" prefWidth="162.0" promptText="Category" styleClass="text-color" />
+                  <ComboBox fx:id="categoryOption" layoutX="75.0" layoutY="99.0" prefHeight="27.0" prefWidth="182.0" promptText="Category" styleClass="text-color" />
                   <Label layoutX="12.0" layoutY="316.0" prefHeight="20.0" prefWidth="79.0" styleClass="text-color" text="Description:">
                      <font>
                         <Font size="14.0" />
@@ -86,13 +86,33 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="endCalendar" disable="true" layoutX="142.0" layoutY="224.0" prefHeight="25.0" prefWidth="112.0" styleClass="text-color" />
+                  <DatePicker fx:id="endCalendar" disable="true" editable="false" layoutX="142.0" layoutY="224.0" prefHeight="25.0" prefWidth="112.0" styleClass="text-color" />
                   <Label fx:id="labelPeriod" disable="true" layoutX="17.0" layoutY="269.0" prefHeight="20.0" prefWidth="68.0" styleClass="text-color" text="Periods:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                   <ComboBox fx:id="periodsOptions" disable="true" layoutX="86.0" layoutY="265.0" prefHeight="27.0" prefWidth="162.0" promptText="Periods" />
+                  <ImageView fx:id="titleError" fitHeight="15.0" fitWidth="22.0" layoutX="249.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../../icon/error.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="hourError" fitHeight="15.0" fitWidth="22.0" layoutX="249.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../../icon/error.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dateInitError" fitHeight="15.0" fitWidth="22.0" layoutX="116.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../../icon/error.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="endDateError" fitHeight="15.0" fitWidth="22.0" layoutX="242.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../../icon/error.png" />
+                     </image>
+                  </ImageView>
                </children></AnchorPane>
             <TableView fx:id="tableTask" layoutX="14.0" layoutY="185.0" prefHeight="369.0" prefWidth="780.0" styleClass="text-color">
               <columns>

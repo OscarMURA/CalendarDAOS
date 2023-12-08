@@ -76,6 +76,7 @@ public class ControllerTaskToDo implements Initializable,Modeable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public void changeMode(){

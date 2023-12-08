@@ -23,8 +23,8 @@ public enum TimePeriod {
         this.description = description;
         this.color = color;
     }
-
-    public String getDescription() {
+    @Override
+    public String toString() {
         return description;
     }
 
