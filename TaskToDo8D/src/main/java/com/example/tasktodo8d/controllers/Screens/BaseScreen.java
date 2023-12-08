@@ -3,6 +3,10 @@ package com.example.tasktodo8d.controllers.Screens;
 import com.example.tasktodo8d.controllers.ControllerTaskToDo;
 import com.example.tasktodo8d.controllers.Mode;
 import com.example.tasktodo8d.controllers.Modeable;
+import com.example.tasktodo8d.model.Task;
+import com.example.tasktodo8d.model.TaskCategory;
+import com.example.tasktodo8d.model.TaskStatus;
+import com.example.tasktodo8d.model.TimePeriod;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -54,7 +58,6 @@ public class BaseScreen implements Modeable {
     @FXML
     protected ComboBox<String> periodsOptions;
 
-
     @FXML
     protected Label periodsLabel;
 
@@ -63,6 +66,25 @@ public class BaseScreen implements Modeable {
 
     @FXML
     protected Label progressLabel;
+
+    @FXML
+    protected TableColumn<Task, String> titleTC;
+
+    @FXML
+    protected TableColumn<Task, String> dateTC;
+
+    @FXML
+    protected TableColumn<Task, TaskCategory> categoryTC;
+
+
+    @FXML
+    protected TableColumn<Task, TimePeriod> periodsTC;
+
+    @FXML
+    protected TableColumn<Task, TaskStatus> statusTC;
+
+    @FXML
+    protected TableView tableTask;
 
 
     @Override
@@ -108,6 +130,7 @@ public class BaseScreen implements Modeable {
                 "EVERY_SIX_DAYS", "WEEKLY", "BIWEEKLY", "MONTHLY",
                 "BIMONTHLY", "SEMESTRAL", "QUARTERLY", "ANNUAL"
         );
+        periodsOptions.setValue("SINGLE_DAY");
     }
 
     protected void initComBoxes(){

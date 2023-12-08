@@ -1,7 +1,5 @@
 package com.example.tasktodo8d.controllers;
 
-import com.example.tasktodo8d.controllers.ControllerTaskToDo;
-import com.example.tasktodo8d.controllers.Screens.BaseScreen;
 import com.example.tasktodo8d.model.Task;
 import com.example.tasktodo8d.model.TaskCategory;
 import com.example.tasktodo8d.model.TaskStatus;
@@ -9,36 +7,35 @@ import com.example.tasktodo8d.model.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-public class ControllerTasks  extends BaseScreen {
+public class ControllerTasks  {
 
-    private ArrayList<Task> tasks;
-    private static ControllerTaskToDo instance;
+    private List<Task> tasks;
+    private static ControllerTasks instance;
 
     private ControllerTasks() {
         tasks = new ArrayList<>();
     }
 
-    private ControllerTaskToDo getInstance() {
+    public static ControllerTasks getInstance() {
         if (instance == null) {
-            instance = new ControllerTaskToDo();
+            instance = new ControllerTasks();
         }
         return instance;
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
 
-    public void addTask(String title, String description, String category, Calendar date, String taskStatus, String timePeriod) {
-        Task task = new Task(title, description, getCategory(category), date, getStatus(taskStatus), getTimePeriod(timePeriod));
+
+    public void addTask(String title, String description, String category, Calendar date, String timePeriod) {
+        Task task = new Task(title, description, getCategory(category), date,  getTimePeriod(timePeriod));
 
         int insertionIndex = binarySearchInsertionIndex(tasks, task);
 
         tasks.add(insertionIndex, task);
     }
 
-    private int binarySearchInsertionIndex(ArrayList<Task> tasks, Task newTask) {
+    private int binarySearchInsertionIndex(List<Task> tasks, Task newTask) {
         int low = 0;
         int high = tasks.size() - 1;
         while (low <= high) {
@@ -78,8 +75,8 @@ public class ControllerTasks  extends BaseScreen {
 
     private TaskStatus getStatus(String status) {
         switch (status) {
-            case "TODO":
-                return TaskStatus.TODO;
+            case "TO_DO":
+                return TaskStatus.TO_DO;
             case "IN_PROGRESS":
                 return TaskStatus.IN_PROGRESS;
             case "CANCELED":
@@ -124,5 +121,10 @@ public class ControllerTasks  extends BaseScreen {
         }
         return result;
     }
+    public List<Task> Tasks() {
+        return tasks;
+    }
+
+
 
 }

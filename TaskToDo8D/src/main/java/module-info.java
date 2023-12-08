@@ -12,4 +12,6 @@ module com.example.tasktodo8d {
     opens com.example.tasktodo8d.controllers to javafx.fxml;
     exports com.example.tasktodo8d.controllers.Screens;
     opens com.example.tasktodo8d.controllers.Screens to javafx.fxml;
+    exports com.example.tasktodo8d.model;
+    opens com.example.tasktodo8d.model to javafx.fxml;
 }

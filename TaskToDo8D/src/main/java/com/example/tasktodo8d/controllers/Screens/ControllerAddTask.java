@@ -1,12 +1,17 @@
 package com.example.tasktodo8d.controllers.Screens;
 
-import com.example.tasktodo8d.controllers.ControllerTaskToDo;
-import com.example.tasktodo8d.controllers.Mode;
+
+import com.example.tasktodo8d.controllers.ControllerTasks;
+
+import com.example.tasktodo8d.model.Task;
+import com.example.tasktodo8d.model.TaskCategory;
+import com.example.tasktodo8d.model.TaskStatus;
+import com.example.tasktodo8d.model.TimePeriod;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -23,6 +28,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
                 Platform.runLater(() -> {
                     changeMode();
                     activatePeriodic();
+
                 });
                 try {
                     Thread.sleep(100);
@@ -50,8 +56,20 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         }
     }
 
+    private void updateTableTask(){
+        ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
+        if(!tasks.isEmpty()){
+            System.out.println("Tasks not empty");
+        }
+        tableTask.setItems(tasks);
+        titleTC.setCellValueFactory(new PropertyValueFactory<Task,String>("name"));
+        categoryTC.setCellValueFactory(new PropertyValueFactory<Task, TaskCategory>("category"));
+        dateTC.setCellValueFactory(new PropertyValueFactory<Task, String>("dateString"));
+        statusTC.setCellValueFactory(new PropertyValueFactory<Task, TaskStatus>("status"));
+        periodsTC.setCellValueFactory(new PropertyValueFactory<Task, TimePeriod>("timePeriod"));
+    }
 
-    private void addTask(){
+    public void addTask(){
         String title = titleWrite.getText();
         String description = descriptions.getText();
         String category = categoryOption.getValue();
@@ -66,8 +84,10 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         int amPM=this.amPM.getValue().equals("AM")?Calendar.AM:Calendar.PM;
         dateG.set(Calendar.AM_PM,amPM);
         date.setTime(dateG.getTime());
-
-
+        String period = periodsOptions.getValue();
+        ControllerTasks.getInstance().addTask(title,description,category,date,period);
+        System.out.println("Task added");
+        updateTableTask();
     }
 
 }

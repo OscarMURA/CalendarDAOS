@@ -1,22 +1,27 @@
 package com.example.tasktodo8d.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Task {
         private String name;
         private String description;
         private TaskCategory category;
         private Calendar date;
+        private String dateString;
         private TaskStatus status;
         private TimePeriod timePeriod;
 
-        public Task(String name, String description, TaskCategory category, Calendar date, TaskStatus status, TimePeriod timePeriod) {
+        public Task(String name, String description, TaskCategory category, Calendar date,  TimePeriod timePeriod) {
                 this.name = name;
                 this.description = description;
                 this.category = category;
                 this.date = date;
-                this.status = status;
+                this.status = TaskStatus.TO_DO;
                 this.timePeriod = timePeriod;
+                this.dateString = getDateAsString();
         }
 
         public String getName() {
@@ -66,6 +71,17 @@ public class Task {
         public void setTimePeriod(TimePeriod timePeriod) {
                 this.timePeriod = timePeriod;
         }
+
+        private String getDateAsString(){
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy --hh:mm a");
+                String date = format.format(this.date.getTime());
+                return date;
+        }
+
+        public String getDateString(){
+                return dateString;
+        }
+
 
 
 }

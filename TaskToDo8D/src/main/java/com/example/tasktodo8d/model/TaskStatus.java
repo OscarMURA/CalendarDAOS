@@ -1,6 +1,6 @@
 package com.example.tasktodo8d.model;
 public enum TaskStatus {
-    TODO("To Do", "#FF4500"),          // Por hacer: Orange Red
+    TO_DO("To Do", "#FF4500"),          // Por hacer: Orange Red
     IN_PROGRESS("In Progress", "#1E90FF"),  // En progreso: Dodger Blue
     CANCELED("Canceled", "#808080"),   // Cancelada: Gray
     COMPLETED("Completed", "#32CD32");  // Finalizada: Lime Green
