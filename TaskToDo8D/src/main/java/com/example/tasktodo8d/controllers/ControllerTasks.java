@@ -129,6 +129,15 @@ public class ControllerTasks  {
         return tasks;
     }
 
+    public Task getTask(String name) {
+        Task result=null;
+        for (Task task : tasks) {
+            if (task.getName().equals(name)) {
+                result= task;
+            }
+        }
+        return result;
+    }
 
 
 }

@@ -1,14 +1,19 @@
 package com.example.tasktodo8d.controllers.Screens;
 
 import com.example.tasktodo8d.controllers.ControllerTaskToDo;
+import com.example.tasktodo8d.controllers.ControllerTasks;
 import com.example.tasktodo8d.controllers.Mode;
 import com.example.tasktodo8d.controllers.Modeable;
 import com.example.tasktodo8d.model.Task;
 import com.example.tasktodo8d.model.TaskCategory;
 import com.example.tasktodo8d.model.TaskStatus;
 import com.example.tasktodo8d.model.TimePeriod;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 public class BaseScreen implements Modeable {
@@ -88,6 +93,19 @@ public class BaseScreen implements Modeable {
 
     @FXML
     protected TextArea descriptionText;
+    @FXML
+    ImageView plusImg;
+    @FXML
+    ImageView removeImg;
+    @FXML
+    ImageView editImg;
+
+    @FXML
+    protected Button removeBtn;
+    @FXML
+    protected Button editBtn;
+    @FXML
+    protected Button plusBtn;
 
     @Override
     public void changeMode(){
@@ -103,12 +121,24 @@ public class BaseScreen implements Modeable {
     public void setLightMode(){
         parent.getStylesheets().clear();
         parent.getStylesheets().add(getClass().getResource("/styles/lightMode.css").toExternalForm());
+        Image plus = new Image(getClass().getResourceAsStream("/icon/plusL.png"));
+        Image remove = new Image(getClass().getResourceAsStream("/icon/removeL.png"));
+        Image edit = new Image(getClass().getResourceAsStream("/icon/editL.png"));
+        plusImg.setImage(plus);
+        removeImg.setImage(remove);
+        editImg.setImage(edit);
     }
 
     @Override
     public void setDarkMode(){
         parent.getStylesheets().clear();
         parent.getStylesheets().add(getClass().getResource("/styles/darkMode.css").toExternalForm());
+        Image plus = new Image(getClass().getResourceAsStream("/icon/plusD.png"));
+        Image remove = new Image(getClass().getResourceAsStream("/icon/removeD.png"));
+        Image edit = new Image(getClass().getResourceAsStream("/icon/editD.png"));
+        plusImg.setImage(plus);
+        removeImg.setImage(remove);
+        editImg.setImage(edit);
     }
 
     protected void initCategoryOptions(){
@@ -139,5 +169,41 @@ public class BaseScreen implements Modeable {
         initCategoryOptions();
         initHourOptions();
         initPeriodOptions();
+    }
+
+    protected void showTask(Task task){
+        titleLabel.setText(task.getName());
+        categoryLabel.setText(task.getCategory().toString());
+        dateLabel.setText(task.getDateString());
+        progressLabel.setText(task.getStatus().getStatus());
+        periodsLabel.setText(task.getTimePeriod().getDescription());
+        descriptionText.setText(task.getDescription());
+    }
+
+    protected void initShowTask(){
+        ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
+        if(!tasks.isEmpty()){
+            Task task=tasks.get(0);
+            showTask(task);
+        }
+    }
+
+    protected void selectionTask(){
+        Task task=(Task) tableTask.getSelectionModel().getSelectedItem();
+        if(task!=null){
+            showTask(task);
+        }
+    }
+
+    public void selectEdit(){
+        System.out.println("Edit");
+    }
+
+    public void selectRemove(){
+        System.out.println("Remove");
+    }
+
+    public void selectAdd(){
+        System.out.println("Add");
     }
 }

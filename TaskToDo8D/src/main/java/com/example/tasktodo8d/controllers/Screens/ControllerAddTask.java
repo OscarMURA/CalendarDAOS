@@ -96,35 +96,11 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         date.setTime(dateG.getTime());
         String period = periodsOptions.getValue();
         ControllerTasks.getInstance().addTask(title,description,category,date,period);
-        System.out.println("Task added");
+        showTask(ControllerTasks.getInstance().getTask(title));
         updateTableTask();
         initElements();
     }
 
-    private void showTask(Task task){
-        titleLabel.setText(task.getName());
-        categoryLabel.setText(task.getCategory().toString());
-        dateLabel.setText(task.getDateString());
-        progressLabel.setText(task.getStatus().getStatus());
-        periodsLabel.setText(task.getTimePeriod().getDescription());
-        descriptionText.setText(task.getDescription());
-    }
 
-
-
-    private void initShowTask(){
-        ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
-        if(!tasks.isEmpty()){
-            Task task=tasks.get(0);
-            showTask(task);
-        }
-    }
-
-    private void selectionTask(){
-        Task task=(Task) tableTask.getSelectionModel().getSelectedItem();
-        if(task!=null){
-            showTask(task);
-        }
-    }
 
 }

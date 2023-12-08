@@ -2,8 +2,7 @@ package com.example.tasktodo8d.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
 
 public class Task {
         private String name;

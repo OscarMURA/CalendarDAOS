@@ -90,7 +90,7 @@
 /* light-mode.css */
 
 .button {
-    -fx-background-color: #CCCCCC; /* Color de fondo del botón */
+    -fx-background-color: #ABABAB; /* Color de fondo del botón */
     -fx-text-fill: #000000; /* Color del texto */
     -fx-border-color: #CCCCCC; /* Color del borde del botón */
     -fx-background-radius: 5; /* Radio de borde del botón */
@@ -151,4 +151,9 @@
 .table-view .column-header .label {
     -fx-text-fill: #000;
     -fx-font-family: "Arial";
+}
+
+.root {
+    -fx-border-color: #DEDEDE; /* Color del borde de la ventana */
+    -fx-border-width: 2px; /* Ancho del borde de la ventana */
 }
