@@ -7,6 +7,7 @@ import com.example.tasktodo8d.model.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ControllerTasks  {
@@ -16,6 +17,9 @@ public class ControllerTasks  {
 
     private ControllerTasks() {
         tasks = new ArrayList<>();
+        addTask("Work", "Work", "WORK", new GregorianCalendar(2023, 5, 1), "SINGLE_DAY");
+        addTask("Play", "Play", "PERSONAL", new GregorianCalendar(2022, 5, 2), "SINGLE_DAY");
+        addTask("Health", "Health", "HEALTH", new GregorianCalendar(2021, 5, 3), "SINGLE_DAY");
     }
 
     public static ControllerTasks getInstance() {

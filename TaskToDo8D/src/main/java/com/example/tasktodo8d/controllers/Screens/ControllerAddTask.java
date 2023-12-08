@@ -22,13 +22,15 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateTableTask();
         initComBoxes();
+        initShowTask();
         new Thread(() -> {
             while (true) {
                 Platform.runLater(() -> {
                     changeMode();
                     activatePeriodic();
-
+                    selectionTask();
                 });
                 try {
                     Thread.sleep(100);
@@ -69,6 +71,14 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         periodsTC.setCellValueFactory(new PropertyValueFactory<Task, TimePeriod>("timePeriod"));
     }
 
+    private void initElements(){
+        titleWrite.setText("");
+        descriptions.setText("");
+        dateInit.setValue(null);
+        initComBoxes();
+
+    }
+
     public void addTask(){
         String title = titleWrite.getText();
         String description = descriptions.getText();
@@ -76,7 +86,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         Calendar date = Calendar.getInstance();
         GregorianCalendar dateG=new GregorianCalendar();
         int year=dateInit.getValue().getYear();
-        int month=dateInit.getValue().getMonthValue();
+        int month=dateInit.getValue().getMonthValue()-1;
         int day=dateInit.getValue().getDayOfMonth();
         int hour=Integer.parseInt(this.hour.getValue());
         int minutes=Integer.parseInt(this.minutes.getValue());
@@ -88,6 +98,33 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         ControllerTasks.getInstance().addTask(title,description,category,date,period);
         System.out.println("Task added");
         updateTableTask();
+        initElements();
+    }
+
+    private void showTask(Task task){
+        titleLabel.setText(task.getName());
+        categoryLabel.setText(task.getCategory().toString());
+        dateLabel.setText(task.getDateString());
+        progressLabel.setText(task.getStatus().getStatus());
+        periodsLabel.setText(task.getTimePeriod().getDescription());
+        descriptionText.setText(task.getDescription());
+    }
+
+
+
+    private void initShowTask(){
+        ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
+        if(!tasks.isEmpty()){
+            Task task=tasks.get(0);
+            showTask(task);
+        }
+    }
+
+    private void selectionTask(){
+        Task task=(Task) tableTask.getSelectionModel().getSelectedItem();
+        if(task!=null){
+            showTask(task);
+        }
     }
 
 }

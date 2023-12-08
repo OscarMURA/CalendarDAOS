@@ -86,6 +86,8 @@ public class BaseScreen implements Modeable {
     @FXML
     protected TableView tableTask;
 
+    @FXML
+    protected TextArea descriptionText;
 
     @Override
     public void changeMode(){

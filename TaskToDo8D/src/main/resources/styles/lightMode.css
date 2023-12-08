@@ -62,33 +62,6 @@
 }
 
 
-/* light-mode.css */
-
-.table-view {
-    -fx-control-inner-background: #F0F0F0; /* Color de fondo de la tabla */
-    -fx-table-cell-border-color: #CCCCCC; /* Color del borde de las celdas */
-    -fx-table-header-border-color: #CCCCCC; /* Color del borde de las cabeceras de columna */
-    -fx-text-fill: #000000; /* Color del texto */
-}
-
-.table-column {
-    -fx-border-color: #CCCCCC; /* Color del borde de las columnas */
-    -fx-background-color: #CCCCCC; /* Color de fondo de las cabeceras de columna */
-    -fx-text-fill: #000000; /* Color del texto de las cabeceras de columna */
-}
-
-.table-row-cell {
-    -fx-cell-size: 30; /* Altura de las filas */
-    -fx-table-cell-border-color: #CCCCCC; /* Color del borde de las celdas */
-    -fx-background-color: #F0F0F0, #F0F0F0; /* Degradado de fondo de las celdas */
-    -fx-background-insets: 0, 1; /* Inset para el degradado de fondo */
-    -fx-background-radius: 5; /* Radio de borde de las celdas */
-    -fx-spacing: 5; /* Espaciado entre las filas */
-}
-
-.table-row-cell:hover {
-    -fx-background-color: derive(#F0F0F0, 25%); /* Color de fondo al pasar el mouse sobre las celdas */
-}
 
 /* light-mode.css */
 
@@ -151,4 +124,31 @@
 
 .radio-button:hover {
     -fx-background-color: #E0E0E0; /* Color de fondo al pasar el mouse sobre el radio button */
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right, #E1E1E1, #C1C1C1);
+    -fx-border-radius: 8px;
+    -fx-padding: 0px;
+}
+
+.table-view .table-column {
+    -fx-alignment: CENTER;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom right, #E1E1E1, #C1C1C1);
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-radius: 8px 8px 0px 0px;
+}
+
+.table-view .column-header, .filter {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #000;
+    -fx-font-family: "Arial";
 }
