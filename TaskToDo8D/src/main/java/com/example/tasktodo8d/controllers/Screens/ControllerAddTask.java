@@ -7,7 +7,6 @@ import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.paint.Color;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
@@ -68,7 +67,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
     @Override
     public void selectAdd(){
         String title = titleWrite.getText();
-
+        boolean allow= false;
         String description = descriptions.getText();
         String category = categoryOption.getValue();
         Calendar date = Calendar.getInstance();
@@ -89,28 +88,57 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
             date.setTime(dateG.getTime());
             String period = periodsOptions.getValue();
             Color colorSelect = color.getValue();
-            if(period=="SINGLE_DAY") {
+            if(period=="SINGLE_DAY" ) {
                 System.out.println(date.getTime());
-                ControllerTasks.getInstance().addTask(title, description, category, date, period, colorToString(colorSelect));
+                allow= dateValid(date);
+                if(allow) allow=ControllerTasks.getInstance().addTask(title, description, category, date, period, colorToString(colorSelect));
             }else{
                 int yearEnd=endCalendar.getValue().getYear();
                 int monthEnd=endCalendar.getValue().getMonthValue()-1;
                 int dayEnd=endCalendar.getValue().getDayOfMonth();
                 GregorianCalendar dateEnd=new GregorianCalendar();
                 dateEnd.set(yearEnd,monthEnd,dayEnd);
-                ControllerTasks.getInstance().addTask(title,description,category,date,period,colorToString(colorSelect),dateEnd);
+                if(dateValid(dateEnd,date))
+                  allow= ControllerTasks.getInstance().addTask(title,description,category,date,period,colorToString(colorSelect),dateEnd);
             }
-            taskShow=(ControllerTasks.getInstance().getTask(title));
-            updateTableTask();
-            initElements();
-            try {
-                ControllerTaskToDo.loadScreen("showTask.fxml");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if(allow){
+                taskShow=(ControllerTasks.getInstance().getTask(title));
+                updateTableTask();
+                initElements();
+                try {
+                    ControllerTaskToDo.loadScreen("showTask.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }else{
             ControllerAlerts.errorContext("Please validate all fields correctly");
         }
+    }
+
+    private boolean dateValid(Calendar date){
+        Calendar now=Calendar.getInstance();
+        boolean allow=true;
+        dateInitError.setVisible(false);
+
+        if(date.before(now)) {
+            dateInitError.setVisible(true);
+            ControllerAlerts.errorContext("Please validate the date, it is before the current date");
+            allow= false;
+        }
+        return allow;
+    }
+
+    private boolean dateValid(Calendar dateEnd,Calendar dateInit){
+        boolean allow=true;
+        endDateError.setVisible(false);
+        allow=dateValid(dateInit);
+        if(allow && dateEnd.before(dateInit)) {
+            endDateError.setVisible(true);
+            ControllerAlerts.errorContext("Please validate the date, it is before the  init date");
+            allow= false;
+        }
+        return allow;
     }
 
     private boolean isTaskValid(String title){
@@ -136,6 +164,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         }
         return allow;
     }
+
 
     private boolean isDateValid(){
         boolean allow=true;

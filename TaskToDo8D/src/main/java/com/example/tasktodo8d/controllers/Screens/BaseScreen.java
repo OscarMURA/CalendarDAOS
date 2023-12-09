@@ -230,9 +230,9 @@ public abstract class BaseScreen implements Modeable {
         if(taskShow!=null){
             if(taskShow.getTimePeriod()== TimePeriod.SINGLE_DAY){
             ControllerTasks.getInstance().Tasks().remove(taskShow);
-            }else if(ControllerTasks.getInstance().taskSame(taskShow).size()>1){
+            }else if(ControllerTasks.getInstance().taskSame(taskShow).size()>=1){
                 boolean removeRepeat= ControllerAlerts.showConfirmation("This task is repeated, do you want to delete all the tasks?");
-                if(removeRepeat){
+                if(removeRepeat && ControllerTasks.getInstance().taskSame(taskShow).size()>1){
                     ControllerTasks.getInstance().removeTaskRepeat(taskShow);
                 }else{
                     ControllerTasks.getInstance().Tasks().remove(taskShow);
