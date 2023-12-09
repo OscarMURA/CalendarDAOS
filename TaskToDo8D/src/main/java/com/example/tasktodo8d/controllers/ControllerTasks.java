@@ -10,9 +10,20 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * The ControllerTasks class represents the controller for tasks in the application.
+ * It is responsible for managing and handling tasks.
+ */
 public class ControllerTasks  {
 
+    /**
+     * The list of tasks.
+     */
     private List<Task> tasks;
+    /**
+     * This class represents the controller for tasks in the application.
+     * It is responsible for managing and handling tasks.
+     */
     private static ControllerTasks instance;
 
     private ControllerTasks() {
@@ -31,6 +42,17 @@ public class ControllerTasks  {
 
 
 
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param title       the title of the task
+     * @param description the description of the task
+     * @param category    the category of the task
+     * @param date        the date of the task
+     * @param timePeriod  the time period of the task
+     * @param color       the color of the task
+     * @return true if the task was successfully added, false otherwise
+     */
     public boolean addTask(String title, String description, String category, Calendar date, String timePeriod, String color) {
         boolean result;
         Task task = new Task(title, description, getCategory(category), date,  getTimePeriod(timePeriod), color);
@@ -40,6 +62,18 @@ public class ControllerTasks  {
         return result;
     }
 
+    /**
+     * Adds a task with the given details to the task list.
+     * 
+     * @param title       the title of the task
+     * @param description the description of the task
+     * @param category    the category of the task
+     * @param date        the starting date of the task
+     * @param timePeriod  the time period of the task
+     * @param color       the color of the task
+     * @param endDate     the end date of the task
+     * @return true if the task is successfully added, false otherwise
+     */
     public boolean addTask(String title, String description, String category, Calendar date, String timePeriod, String color, Calendar endDate){
         boolean result;
         int periodTime =getTimePeriod(timePeriod).getDays();
@@ -57,6 +91,13 @@ public class ControllerTasks  {
 
 
 
+    /**
+     * The function performs a binary search on a sorted list of tasks to find the insertion index for a new task based on its date.
+     * 
+     * @param tasks A list of Task objects, sorted in ascending order by date.
+     * @param newTask The `newTask` parameter is an instance of the `Task` class.
+     * @return The method is returning the index at which the newTask should be inserted into the tasks list in order to maintain the sorted order based on the date of the tasks.
+     */
     private int binarySearchInsertionIndex(List<Task> tasks, Task newTask) {
         int low = 0;
         int high = tasks.size() - 1;
@@ -74,6 +115,12 @@ public class ControllerTasks  {
         return low;
     }
 
+    /**
+     * The function takes a string input representing a category and returns the corresponding TaskCategory enum value.
+     * 
+     * @param category A string representing the category of a task.
+     * @return The method is returning a TaskCategory object based on the input category string.
+     */
     private TaskCategory getCategory(String category) {
         switch (category) {
             case "WORK":
@@ -93,6 +140,12 @@ public class ControllerTasks  {
         }
     }
 
+    /**
+     * The function takes a string input and returns the corresponding TaskStatus enum value.
+     * 
+     * @param status A string representing the status of a task.
+     * @return The method is returning a TaskStatus object.
+     */
     private TaskStatus getStatus(String status) {
         switch (status) {
             case "TO_DO":
@@ -108,6 +161,12 @@ public class ControllerTasks  {
         }
     }
 
+    /**
+     * The function `getTimePeriod` takes a string input representing a time period and returns the corresponding `TimePeriod` enum value.
+     * 
+     * @param timePeriod A string representing a time period.
+     * @return The method is returning a TimePeriod object.
+     */
     private TimePeriod getTimePeriod(String timePeriod) {
         TimePeriod result = null;
         switch (timePeriod) {
@@ -145,6 +204,12 @@ public class ControllerTasks  {
         return tasks;
     }
 
+    /**
+     * The function "getTask" returns a Task object with a specific name from a list of tasks.
+     * 
+     * @param name The name of the task that you want to retrieve.
+     * @return The method is returning a Task object.
+     */
     public Task getTask(String name) {
         Task result=null;
         for (Task task : tasks) {
@@ -155,6 +220,12 @@ public class ControllerTasks  {
         return result;
     }
 
+    /**
+     * The function removes all tasks that are the same as the given task from a list of tasks and returns true if any tasks were removed.
+     * 
+     * @param task The parameter "task" is of type Task, which represents a task object.
+     * @return The method is returning a boolean value. It returns true if there were tasks with the same properties as the given task that were successfully removed from the list of tasks, and false if no tasks were removed.
+     */
     public boolean removeTaskRepeat(Task task){
         List<Task> tasksSame=taskSame(task);
         for(Task task1:tasksSame){
@@ -164,6 +235,12 @@ public class ControllerTasks  {
         return tasksSame.size()>0;
     }
 
+    /**
+     * The function "taskSame" returns a list of tasks that are equal to a given task.
+     * 
+     * @param task The parameter "task" is an object of type "Task".
+     * @return The method is returning a List of Task objects.
+     */
     public List<Task> taskSame(Task task){
         List<Task> result=new ArrayList<>();
         for(Task task1:tasks){

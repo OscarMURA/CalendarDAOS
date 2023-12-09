@@ -4,15 +4,40 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
+
+/**
+ * Represents a task in the application.
+ */
 public class Task {
 
+        /**
+         * Represents the name of a task.
+         */
         private String name;
+        /**
+         * Represents the description of a task.
+         */
         private String description;
+        /**
+         * Represents the category of a task.
+         */
         private TaskCategory category;
+        /**
+         * Represents a task with a specific date.
+         */
         private Calendar date;
         private String dateString;
+        /**
+         * Represents the status of a task.
+         */
         private TaskStatus status;
+        /**
+         * Represents the time period of a task.
+         */
         private TimePeriod timePeriod;
+        /**
+         * The color RGB of the task.
+         */
         private String color;
 
         public Task(String name, String description, TaskCategory category, Calendar date,  TimePeriod timePeriod,String color) {

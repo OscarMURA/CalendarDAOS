@@ -32,6 +32,10 @@ public class ControllerInitialShowTask extends BaseScreen implements Initializab
         }).start();
     }
 
+    /**
+     * Selects the "Add" option, which loads the "addTask.fxml" screen.
+     * @throws RuntimeException if an IOException occurs while loading the screen.
+     */
     @Override
     public void selectAdd() {
         try {

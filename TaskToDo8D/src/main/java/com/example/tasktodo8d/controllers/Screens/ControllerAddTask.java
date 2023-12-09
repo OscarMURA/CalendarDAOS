@@ -43,6 +43,11 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
 
 
 
+    /**
+     * Activates or deactivates the periodic option for adding tasks.
+     * If the periodic option is selected, it enables the end date, end calendar, label period, and periods options.
+     * If the periodic option is not selected, it disables the end date, end calendar, label period, and periods options.
+     */
     private void activatePeriodic() {
         if (!periodicOption.isSelected()) {
             endDate.setDisable(true);
@@ -57,6 +62,12 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         }
     }
 
+    /**
+     * Initializes the elements in the ControllerAddTask screen.
+     * Sets the titleWrite and descriptions fields to an empty string.
+     * Sets the dateInit field to null.
+     * Calls the initComBoxes method to initialize the combo boxes.
+     */
     private void initElements(){
         titleWrite.setText("");
         descriptions.setText("");
@@ -64,6 +75,16 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         initComBoxes();
     }
 
+    /**
+     * Selects the "Add" action and performs the necessary operations to add a task.
+     * Retrieves the title, description, category, date, and other details of the task from the input fields.
+     * Validates the task, hour, and date to ensure they are in the correct format.
+     * If all validations pass, creates a new task with the provided details and adds it to the task list.
+     * If the task is a single-day task, checks if the date is valid and adds the task to the task list.
+     * If the task is a multi-day task, checks if the end date is valid and adds the task to the task list.
+     * Updates the table of tasks, initializes the input elements, and loads the "showTask" screen.
+     * If any validation fails, displays an error message.
+     */
     @Override
     public void selectAdd(){
         String title = titleWrite.getText();
@@ -116,6 +137,12 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         }
     }
 
+    /**
+     * Checks if the given date is valid.
+     * 
+     * @param date The date to be validated.
+     * @return true if the date is valid, false otherwise.
+     */
     private boolean dateValid(Calendar date){
         Calendar now=Calendar.getInstance();
         boolean allow=true;
@@ -129,6 +156,14 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         return allow;
     }
 
+    /**
+     * Checks if the given end date is valid based on the given start date.
+     * If the end date is before the start date, an error message is displayed.
+     * 
+     * @param dateEnd The end date to be validated.
+     * @param dateInit The start date to compare against.
+     * @return true if the end date is valid, false otherwise.
+     */
     private boolean dateValid(Calendar dateEnd,Calendar dateInit){
         boolean allow=true;
         endDateError.setVisible(false);
@@ -141,6 +176,12 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         return allow;
     }
 
+    /**
+     * Checks if a task is valid based on its title.
+     * 
+     * @param title the title of the task
+     * @return true if the task is valid, false otherwise
+     */
     private boolean isTaskValid(String title){
         boolean allow= true;
         if(title.isEmpty()){
@@ -151,6 +192,11 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         }
         return allow;
     }
+    /**
+     * Checks if the hour and minutes values are valid.
+     * 
+     * @return true if the hour and minutes values are valid, false otherwise.
+     */
     private boolean isHourValid(){
         boolean allow= true;
         try{
@@ -166,6 +212,11 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
     }
 
 
+    /**
+     * Checks if the date is valid.
+     * 
+     * @return true if the date is valid, false otherwise.
+     */
     private boolean isDateValid(){
         boolean allow=true;
         allow=isDateValid(dateInit);
@@ -176,6 +227,12 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
     }
 
 
+    /**
+     * Checks if the given date is valid.
+     * 
+     * @param date The DatePicker object representing the date to be checked.
+     * @return true if the date is valid, false otherwise.
+     */
     private boolean isDateValid(DatePicker date){
         boolean allow= true;
         try{
@@ -197,6 +254,12 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         }
         return allow;
     }
+    /**
+     * Converts a Color object to its corresponding hexadecimal string representation.
+     *
+     * @param color the Color object to convert
+     * @return the hexadecimal string representation of the color
+     */
     private String colorToString(Color color) {
         int red = (int) (color.getRed() * 255);
         int green = (int) (color.getGreen() * 255);

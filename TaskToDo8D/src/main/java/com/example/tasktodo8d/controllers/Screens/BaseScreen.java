@@ -17,62 +17,125 @@ import javafx.scene.shape.Rectangle;
 
 public abstract class BaseScreen implements Modeable {
 
+    /**
+     * The parent container for the UI elements in the screen.
+     */
     @FXML
     public  BorderPane parent;
 
+    /**
+     * The text field for entering the title.
+     */
     @FXML
     public TextField titleWrite;
 
+    /**
+     * Represents a rectangular shape in JavaFX.
+     */
     @FXML
     public Rectangle colorProgress;
 
+    /**
+     * The DatePicker class represents a control that allows the user to select a date from a calendar.
+     */
     @FXML
     public DatePicker dateInit;
 
+    /**
+     * The DatePicker class represents a control that allows the user to select a date from a calendar.
+     */
     @FXML
     protected DatePicker endCalendar;
 
+    /**
+     * The ComboBox representing the hour.
+     */
     @FXML
     protected ComboBox<String> hour;
 
+    /**
+     * The ComboBox representing the minutes.
+     */
     @FXML
     protected ComboBox<String> minutes;
 
+    /**
+     * The amPM ComboBox represents the selection of AM or PM for time.
+     */
     @FXML
     protected ComboBox<String> amPM;
+    /**
+     * The ComboBox used for selecting a category.
+     */
     @FXML
     protected ComboBox<String> categoryOption;
+    /**
+     * The add button used in the base screen.
+     */
     @FXML
     protected Button addButtom;
+    /**
+     * The TextArea component is used to display and edit multi-line text.
+     */
     @FXML
     protected TextArea descriptions;
 
+    /**
+     * Represents a radio button control.
+     */
     @FXML
     protected RadioButton periodicOption;
 
+    /**
+     * The Label class represents a text component in JavaFX that can be used to display text.
+     */
     @FXML
     protected Label endDate;
 
+    /**
+     * The label used to display the period.
+     */
     @FXML
     protected Label labelPeriod;
 
+    /**
+        * The label used to display the title on the screen.
+        */
     @FXML
     protected Label titleLabel;
 
+    /**
+        * The label used to display the date.
+        */
     @FXML
     protected Label dateLabel;
+    /**
+     * The ComboBox that displays the available periods options.
+     */
     @FXML
     protected ComboBox<String> periodsOptions;
 
+    /**
+        * The label used to display periods.
+        */
     @FXML
     protected Label periodsLabel;
 
+    /**
+     * The label used to display the category.
+     */
     @FXML
     protected Label categoryLabel;
 
+    /**
+        * The progress label used in the base screen.
+        */
     @FXML
     protected Label progressLabel;
 
+    /**
+     * The table column for the title of a task.
+     */
     @FXML
     protected TableColumn<Task, String> titleTC;
 
@@ -84,6 +147,10 @@ public abstract class BaseScreen implements Modeable {
     protected TableColumn<Task, ?> periodsTC;
     @FXML
     protected TableColumn<Task, ?> statusTC;
+    @FXML
+    protected TableColumn<Task,String> colorTC;
+    
+    protected static Task taskShow;
     @FXML
     protected TableView tableTask;
 
@@ -114,9 +181,7 @@ public abstract class BaseScreen implements Modeable {
     protected ColorPicker color;
     @FXML
     protected Rectangle colorFig;
-    @FXML
-    protected TableColumn<Task,String> colorTC;
-    protected static Task taskShow;
+    
     @Override
     public void changeMode(){
         Mode isLight = ControllerTaskToDo.isLight();
@@ -151,11 +216,18 @@ public abstract class BaseScreen implements Modeable {
         editImg.setImage(edit);
     }
 
+    /**
+     * Initializes the category options for the screen.
+     * Adds the predefined categories to the categoryOption ComboBox and sets the default value to "WORK".
+     */
     protected void initCategoryOptions(){
         categoryOption.getItems().addAll("WORK", "PERSONAL", "HEALTH", "PROJECTS", "SHOPPING", "REMINDERS");
         categoryOption.setValue("WORK");
     }
 
+    /**
+     * Initializes the hour, minutes, and amPM options for the screen.
+     */
     protected void initHourOptions(){
         hour.getItems().addAll("01","02","03","04","05","06","07","08","09","10","11","12");
         minutes.getItems().addAll("00","01","02","03","04","05","06","07","08","09","10","11","12",
@@ -167,6 +239,11 @@ public abstract class BaseScreen implements Modeable {
         amPM.setValue("AM");
     }
 
+    /**
+     * Initializes the period options for the screen.
+     * Adds the available period options to the periodOptions ComboBox
+     * and sets the default value to "SINGLE_DAY".
+     */
     protected void initPeriodOptions(){
         periodsOptions.getItems().addAll(
                 "SINGLE_DAY", "EVERY_DAY", "EVERY_TWO_DAYS",
@@ -177,12 +254,22 @@ public abstract class BaseScreen implements Modeable {
         periodsOptions.setValue("SINGLE_DAY");
     }
 
+    /**
+     * Initializes the combo boxes for category, hour, and period options.
+     */
     protected void initComBoxes(){
         initCategoryOptions();
         initHourOptions();
         initPeriodOptions();
     }
 
+    /**
+     * Displays the details of a given task on the screen.
+     * If the task is not null, it sets the visibility and values of various UI elements based on the task's properties.
+     * If the task is null, it hides the UI elements.
+     *
+     * @param task The task to be displayed on the screen.
+     */
     protected void showTask(Task task){
         if(task!=null){
             colorFig.setVisible(true);
@@ -207,6 +294,11 @@ public abstract class BaseScreen implements Modeable {
         }
     }
 
+    /**
+     * Initializes the show task functionality.
+     * Retrieves a list of tasks from the controller and sets the first task as the task to be shown.
+     * If no task is currently being shown and the list of tasks is not empty, the first task in the list is selected.
+     */
     protected void initShowTask(){
         ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
         if(taskShow==null && !tasks.isEmpty()){
@@ -215,6 +307,9 @@ public abstract class BaseScreen implements Modeable {
         }
     }
 
+    /**
+     * Updates the selected task in the table view.
+     */
     protected void selectionTask(){
         Task task=(Task) tableTask.getSelectionModel().getSelectedItem();
         if(task!=null){
@@ -226,6 +321,13 @@ public abstract class BaseScreen implements Modeable {
         System.out.println("Edit");
     }
 
+    /**
+     * Removes the selected task from the task list.
+     * If the task is a single-day task, it is removed directly.
+     * If the task is a repeated task, a confirmation dialog is shown to ask if all the tasks should be deleted.
+     * If confirmed, all the repeated tasks are removed. Otherwise, only the selected task is removed.
+     * After removing the task, the table and the task display are updated accordingly.
+     */
     public void selectRemove(){
         if(taskShow!=null){
             if(taskShow.getTimePeriod()== TimePeriod.SINGLE_DAY){
@@ -244,9 +346,12 @@ public abstract class BaseScreen implements Modeable {
         }
     }
 
-
-
-
+    /**
+     * Updates the table with the latest tasks.
+     * Retrieves the tasks from the ControllerTasks instance and sets them in the table.
+     * Configures the cell value factories for each column in the table.
+     * Sets a custom cell factory for the color column to display a colored rectangle based on the color value.
+     */
     protected void updateTableTask(){
         ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
         tableTask.setItems(tasks);
@@ -259,6 +364,13 @@ public abstract class BaseScreen implements Modeable {
         colorTC.setCellValueFactory(new PropertyValueFactory<>("color"));
         colorTC.setCellFactory(column ->
             new TableCell<Task, String>() {
+                /**
+                 * Updates the item in the cell with the specified color.
+                 * If the item is null or empty, the cell will be empty.
+                 * Otherwise, a colored rectangle will be displayed in the cell.
+                 * @param item  the color value to be displayed in the cell
+                 * @param empty a boolean indicating whether the cell is empty or not
+                 */
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
@@ -274,5 +386,8 @@ public abstract class BaseScreen implements Modeable {
          );
     }
 
+    /**
+     * Selects the "Add" option.
+     */
     public abstract void selectAdd();
 }
