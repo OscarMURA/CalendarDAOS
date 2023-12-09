@@ -1,0 +1,13 @@
+.menu-bar {
+    -fx-background-color: #f0f0f0; /* Puedes ajustar este color según tus preferencias */
+}
+
+/* Estilo para el texto en modo claro */
+.menu-bar .label {
+    -fx-text-fill: #000000; /* Color del texto en modo claro */
+}
+
+/* Estilo para los menús emergentes en modo claro */
+.menu-item {
+    -fx-background-color: #f0f0f0; /* Puedes ajustar este color según tus preferencias */
+}

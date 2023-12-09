@@ -1,0 +1,185 @@
+.primary-color {
+    -fx-background-color: #343434;
+    -fx-text-fill: #FFFFFF
+}
+.secondary-color {
+    -fx-background-color: #282828;
+
+}
+.third-color {
+    -fx-background-color: #1C1C1C;
+}
+.round-border {
+    -fx-background-radius: 100;
+    -fx-text-fill: #FFFFFF;
+}
+
+.round2-border {
+    -fx-background-radius: 20;
+    -fx-text-fill: #FFFFFF;
+}
+.text-color {
+    -fx-text-fill: #FFFFFF
+}
+
+.date-picker {
+    -fx-control-inner-background: #333333; /* Color de fondo del área del selector de fecha */
+    -fx-background-color: #222222; /* Color de fondo del DatePicker */
+    -fx-text-fill: #FFFFFF; /* Color del texto */
+}
+
+/* Cambiar el color de fondo del calendario emergente */
+.date-cell {
+    -fx-background-color: #333333;
+}
+
+/* Cambiar el color de fondo de las fechas seleccionadas */
+.date-cell:selected {
+    -fx-background-color: #555555;
+}
+
+/* Cambios para el modo oscuro */
+.menu-bar {
+    -fx-text-fill: #FFFFFF; /* Color del texto en modo oscuro */
+    -fx-background-color: #2b2b2b; /* Puedes ajustar este color según tus preferencias para el modo oscuro */
+}
+.menu-bar .label {
+    -fx-text-fill: #FFFFFF; /* Color del texto en modo oscuro */
+}
+.menu-item {
+    -fx-text-fill: #FFFFFF; /* Color del texto en modo oscuro */
+    -fx-background-color: #2b2b2b; /* Puedes ajustar este color según tus preferencias para el modo oscuro */
+}
+
+
+.rectangle {
+    -fx-fill: #666666; /* Color de relleno del rectángulo */
+    -fx-stroke: #424242; /* Color del borde del rectángulo */
+    -fx-stroke-width: 100; /* Ancho del borde del rectángulo */
+}
+
+
+
+
+/* dark-mode.css */
+
+.combo-box {
+    -fx-text-fill: #FFFFFF;
+    -fx-control-inner-background: #333333; /* Color de fondo del cuadro combinado */
+    -fx-background-color: #555555; /* Color de fondo del desplegable */
+    -fx-background-radius: 5; /* Radio de borde del desplegable */
+    -fx-border-color: #555555; /* Color del borde del desplegable */
+    -fx-border-radius: 5; /* Radio de borde del desplegable */
+}
+
+.combo-box-popup {
+    -fx-background-color: #555555; /* Color de fondo del menú desplegable */
+    -fx-text-fill: #FFFFFF;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #555555; /* Color de fondo de los elementos del menú desplegable */
+    -fx-text-fill: #FFFFFF; /* Color del texto de los elementos del menú desplegable */
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: derive(#555555, 25%); /* Color de fondo al pasar el mouse sobre los elementos del menú desplegable */
+    -fx-text-fill: #FFFFFF;
+}
+
+
+.button {
+    -fx-background-color: #555555; /* Color de fondo del botón */
+    -fx-text-fill: #FFFFFF; /* Color del texto */
+    -fx-border-color: #555555; /* Color del borde del botón */
+    -fx-background-radius: 5; /* Radio de borde del botón */
+    -fx-border-radius: 5; /* Radio de borde del botón */
+}
+
+.button:hover {
+    -fx-background-color: derive(#555555, 25%); /* Color de fondo al pasar el mouse sobre el botón */
+}
+
+.text-area {
+    -fx-background-color: #383838; /* Color de fondo del área de texto */
+    -fx-text-fill: #FFFFFF; /* Color del texto */
+    -fx-control-inner-background: #383838; /* Color de fondo del contenido del área de texto */
+    -fx-border-color: #383838; /* Color del borde del área de texto */
+    -fx-background-radius: 7; /* Radio de borde del área de texto */
+    -fx-border-radius: 7; /* Radio de borde del área de texto */
+}
+
+.text-area:hover {
+    -fx-background-color: #444444; /* Color de fondo al pasar el mouse sobre el área de texto */
+}
+
+.radio-button {
+    -fx-background-color: #333333; /* Color de fondo del radio button */
+    -fx-text-fill: #FFFFFF; /* Color del texto */
+    -fx-border-color: #555555; /* Color del borde del radio button */
+    -fx-background-radius: 5; /* Radio de borde del radio button */
+    -fx-border-radius: 5; /* Radio de borde del radio button */
+}
+
+.radio-button:hover {
+    -fx-background-color: #444444; /* Color de fondo al pasar el mouse sobre el radio button */
+}
+
+
+/* dark-mode.css */
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #394052; /* Color del borde de la tabla */
+    -fx-border-radius: 8px;
+    -fx-padding: 0px;
+}
+
+.table-view .table-column {
+    -fx-alignment: CENTER;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #282828; /* Color del fondo de la cabecera de columna */
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-radius: 8px 8px 0px 0px;
+}
+
+.table-view .column-header, .filter {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #fff; /* Color del texto de la cabecera de columna */
+    -fx-font-family: "Arial";
+}
+
+.table-view .table-row-cell {
+    -fx-table-cell-border-color: #555555; /* Color del borde de las celdas */
+    -fx-background-color: #424242, #404040; /* Degradado de fondo de las celdas */
+    -fx-background-insets: 0, 1; /* Inset para el degradado de fondo */
+    -fx-background-radius: 0; /* Radio de borde de las celdas */
+}
+
+.table-view .table-row-cell:selected {
+    -fx-text-fill: #fff; /* Color del texto de la cabecera de columna */
+    -fx-background-color: #636363, #555555; /* Cambia el color de fondo de la fila seleccionada */
+}
+
+.table-view .table-row-cell:odd {
+    -fx-text-fill: #fff; /* Color del texto de la cabecera de columna */
+    -fx-background-color: #3D3D3D, #3D3D3D; /* Cambia el color de fondo de las filas impares */
+}
+.table-view .table-row-cell:odd:selected {
+    -fx-text-fill: #fff; /* Color del texto de la cabecera de columna */
+    -fx-background-color: #636363, #555555; /* Cambia el color de fondo de la fila seleccionada */
+}
+
+
+
+.root {
+    -fx-border-color: #394052; /* Color del borde de la ventana */
+    -fx-border-width: 2px; /* Ancho del borde de la ventana */
+}
+

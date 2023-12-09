@@ -244,12 +244,33 @@ public class ControllerTasks  {
     public List<Task> taskSame(Task task){
         List<Task> result=new ArrayList<>();
         for(Task task1:tasks){
-            if(task1.equals(task)){
+            if(task1.getName().equals(task.getName()) &&task1.getDescription().equals(task.getDescription())&&task1.getCategory().equals(task.getCategory())&&task1.getTimePeriod().equals(task.getTimePeriod())&&task1.getColor().equals(task.getColor())){
                 result.add(task1);
             }
         }
         return result;
     }
+
+    public List<Task> searchTask(String wordKeys){
+        List<Task> result=new ArrayList<>();
+        wordKeys=wordKeys.toLowerCase();
+        String[] keys=wordKeys.split(" ");
+
+
+        boolean found=false;
+        for(int i=0;i<tasks.size();i++){
+            for(int j=0;j<keys.length && !found;j++){
+                if(tasks.get(i).toString().toLowerCase().contains(keys[j])){
+                    result.add(tasks.get(i));
+                    found=true;
+                }
+            }
+            found=false;
+        }
+        return result;
+    }
+
+    
 
 
 

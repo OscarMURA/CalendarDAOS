@@ -1,5 +1,7 @@
 package com.example.tasktodo8d.controllers.Screens;
 
+import java.util.List;
+
 import com.example.tasktodo8d.controllers.*;
 import com.example.tasktodo8d.model.Task;
 import com.example.tasktodo8d.model.TimePeriod;
@@ -182,14 +184,18 @@ public abstract class BaseScreen implements Modeable {
     @FXML
     protected Rectangle colorFig;
     
+    protected Mode mode;
+    protected boolean isRunning;
+    
     @Override
     public void changeMode(){
         Mode isLight = ControllerTaskToDo.isLight();
-        if(isLight==Mode.LIGHT){
+        if(isLight==Mode.LIGHT ){
             setLightMode();
-        }else{
+        }else if(isLight==Mode.DARK ){
             setDarkMode();
         }
+        
     }
 
     @Override
@@ -353,7 +359,14 @@ public abstract class BaseScreen implements Modeable {
      * Sets a custom cell factory for the color column to display a colored rectangle based on the color value.
      */
     protected void updateTableTask(){
-        ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
+        List<Task> tasksControl=ControllerTasks.getInstance().Tasks();
+        String searchTask=ControllerTaskToDo.getSearchTask();
+        if(searchTask!=null && !ControllerTasks.getInstance().searchTask(searchTask).isEmpty()){
+            tasksControl=ControllerTasks.getInstance().searchTask(searchTask);
+            taskShow=tasksControl.get(0);
+            selectionTask();
+        }
+        ObservableList<Task> tasks = FXCollections.observableArrayList(tasksControl);
         tableTask.setItems(tasks);
         FilteredList<Task> filteredData = new FilteredList<>(tasks, p -> true);
         titleTC.setCellValueFactory(new PropertyValueFactory("name"));
@@ -385,6 +398,8 @@ public abstract class BaseScreen implements Modeable {
             }
          );
     }
+
+
 
     /**
      * Selects the "Add" option.

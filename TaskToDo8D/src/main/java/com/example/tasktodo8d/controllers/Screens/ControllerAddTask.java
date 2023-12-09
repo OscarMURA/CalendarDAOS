@@ -1,31 +1,32 @@
 package com.example.tasktodo8d.controllers.Screens;
 
-import com.example.tasktodo8d.controllers.ControllerAlerts;
-import com.example.tasktodo8d.controllers.ControllerTaskToDo;
-import com.example.tasktodo8d.controllers.ControllerTasks;
-import javafx.application.Platform;
-import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
+import com.example.tasktodo8d.controllers.ControllerAlerts;
+import com.example.tasktodo8d.controllers.ControllerTaskToDo;
+import com.example.tasktodo8d.controllers.ControllerTasks;
+
+import javafx.application.Platform;
+import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
+import javafx.scene.paint.Color;
+
 
 public class ControllerAddTask extends BaseScreen implements Initializable  {
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        changeMode();
-        updateTableTask();
+        isRunning=true;
         initComBoxes();
         initShowTask();
         new Thread(() -> {
-            while (true) {
+            while (isRunning) {
                 Platform.runLater(() -> {
+                    updateTableTask();
                     changeMode();
                     activatePeriodic();
                     selectionTask();
@@ -40,7 +41,6 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         }).start();
         setLightMode();
     }
-
 
 
     /**
@@ -61,6 +61,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
             periodsOptions.setDisable(false);
         }
     }
+
 
     /**
      * Initializes the elements in the ControllerAddTask screen.
@@ -128,6 +129,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
                 initElements();
                 try {
                     ControllerTaskToDo.loadScreen("showTask.fxml");
+                    isRunning=false;
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -139,7 +141,6 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
 
     /**
      * Checks if the given date is valid.
-     * 
      * @param date The date to be validated.
      * @return true if the date is valid, false otherwise.
      */
@@ -256,7 +257,6 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
     }
     /**
      * Converts a Color object to its corresponding hexadecimal string representation.
-     *
      * @param color the Color object to convert
      * @return the hexadecimal string representation of the color
      */

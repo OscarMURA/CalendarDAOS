@@ -1,6 +1,8 @@
 package com.example.tasktodo8d.controllers.Screens;
 
 import com.example.tasktodo8d.controllers.ControllerTaskToDo;
+import com.example.tasktodo8d.controllers.Mode;
+
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 
@@ -13,13 +15,13 @@ public class ControllerInitialShowTask extends BaseScreen implements Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        changeMode();
+        isRunning=true;
         initShowTask();
         new Thread(() -> {
-            while (true) {
+            while (isRunning) {
                 Platform.runLater(() -> {
-                    updateTableTask();
                     changeMode();
+                    updateTableTask();
                     selectionTask();
                     showTask(taskShow);
                 });
@@ -39,6 +41,7 @@ public class ControllerInitialShowTask extends BaseScreen implements Initializab
     @Override
     public void selectAdd() {
         try {
+            isRunning=false;
             ControllerTaskToDo.loadScreen("addTask.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);

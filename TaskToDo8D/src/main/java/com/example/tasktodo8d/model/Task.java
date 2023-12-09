@@ -100,7 +100,7 @@ public class Task {
         }
 
         private String getDateAsString(){
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy --hh:mm a");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd --hh:mm a");
                 String date = format.format(this.date.getTime());
                 return date;
         }
@@ -115,15 +115,16 @@ public class Task {
         public void setColor(String color) {
                 this.color = color;
         }
-        @Override
-        public boolean equals(Object obj){
-                boolean result = false;
-                if(obj instanceof Task){
-                        Task task = (Task) obj;
-                        result = task!=null && this.name.equals(task.name) && this.description.equals(task.description) && this.category.equals(task.category)  && this.timePeriod.equals(task.timePeriod);
-                }
-                return result;
+        public String toString(){
+                return "Name: " + name + "\n" +
+                        "Description: " + description + "\n" +
+                        "Category: " + category + "\n" +
+                        "Date: " + getDateAsString()+ "\n" +
+                        "Status: " + status + "\n" +
+                        "Time Period: " + timePeriod + "\n" +
+                        "Color: " + color + "\n";
         }
+
 
 }
 
