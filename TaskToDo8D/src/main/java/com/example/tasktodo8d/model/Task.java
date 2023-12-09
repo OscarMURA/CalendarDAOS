@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 
 public class Task {
+
         private String name;
         private String description;
         private TaskCategory category;
@@ -12,8 +13,10 @@ public class Task {
         private String dateString;
         private TaskStatus status;
         private TimePeriod timePeriod;
+        private String color;
 
-        public Task(String name, String description, TaskCategory category, Calendar date,  TimePeriod timePeriod) {
+        public Task(String name, String description, TaskCategory category, Calendar date,  TimePeriod timePeriod,String color) {
+                this.color = color;
                 this.name = name;
                 this.description = description;
                 this.category = category;
@@ -81,7 +84,21 @@ public class Task {
                 return dateString;
         }
 
-
+        public String getColor() {
+                return color;
+        }
+        public void setColor(String color) {
+                this.color = color;
+        }
+        @Override
+        public boolean equals(Object obj){
+                boolean result = false;
+                if(obj instanceof Task){
+                        Task task = (Task) obj;
+                        result = task!=null && this.name.equals(task.name) && this.description.equals(task.description) && this.category.equals(task.category)  && this.timePeriod.equals(task.timePeriod);
+                }
+                return result;
+        }
 
 }
 

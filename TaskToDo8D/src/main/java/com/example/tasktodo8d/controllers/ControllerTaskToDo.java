@@ -1,6 +1,8 @@
 package com.example.tasktodo8d.controllers;
 
 import com.example.tasktodo8d.AppTaskToDo;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.time.LocalTime;
@@ -41,7 +44,8 @@ public class ControllerTaskToDo implements Initializable,Modeable {
     @FXML
     private ImageView searchImg;
     @FXML
-    private BorderPane miPanel;
+    private  BorderPane miPanel;
+    private static BorderPane staticPanel;
 
     private static Mode isLight;
 
@@ -71,12 +75,12 @@ public class ControllerTaskToDo implements Initializable,Modeable {
             }
         }).start();
         isLight = Mode.LIGHT;
+        staticPanel = miPanel;
         try {
-            addTask();
+            loadScreen("showTask.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public void changeMode(){
@@ -109,14 +113,31 @@ public class ControllerTaskToDo implements Initializable,Modeable {
         menuBar.getStyleClass().add(getClass().getResource("/styles/menuDark.css").toExternalForm());
     }
 
-    @FXML
+
     public void addTask() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(AppTaskToDo.class.getResource("showTask.fxml"));
-        BorderPane root =(BorderPane) loader.load();
+        BorderPane root = loader.load();
         miPanel.getChildren().clear();
         miPanel.setCenter(root);
 
+    }
+
+
+    public static void loadScreen(String fxml) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(AppTaskToDo.class.getResource(fxml));
+        BorderPane root = loader.load();
+        if(isLight==Mode.LIGHT){
+            root.getStylesheets().add(AppTaskToDo.class.getResource("/styles/lightMode.css").toExternalForm());
+        }else{
+            root.getStylesheets().add(AppTaskToDo.class.getResource("/styles/darkMode.css").toExternalForm());
+        }
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.15), event -> {
+            staticPanel.getChildren().clear();
+            staticPanel.setCenter(root);
+        }));
+        timeline.play();
     }
 
 

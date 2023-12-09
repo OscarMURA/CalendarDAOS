@@ -176,11 +176,10 @@
     -fx-background-color: #636363, #555555; /* Cambia el color de fondo de la fila seleccionada */
 }
 
-.table-view .table-row-cell:hover {
-    -fx-background-color: derive(#2E2E2E, 25%); /* Color de fondo al pasar el mouse sobre las celdas */
-}
+
 
 .root {
     -fx-border-color: #394052; /* Color del borde de la ventana */
     -fx-border-width: 2px; /* Ancho del borde de la ventana */
 }
+

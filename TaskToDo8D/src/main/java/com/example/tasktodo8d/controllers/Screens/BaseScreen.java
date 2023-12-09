@@ -1,36 +1,30 @@
 package com.example.tasktodo8d.controllers.Screens;
 
-import com.example.tasktodo8d.controllers.ControllerTaskToDo;
-import com.example.tasktodo8d.controllers.ControllerTasks;
-import com.example.tasktodo8d.controllers.Mode;
-import com.example.tasktodo8d.controllers.Modeable;
+import com.example.tasktodo8d.controllers.*;
 import com.example.tasktodo8d.model.Task;
-import com.example.tasktodo8d.model.TaskCategory;
-import com.example.tasktodo8d.model.TaskStatus;
 import com.example.tasktodo8d.model.TimePeriod;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.css.converter.StringConverter;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-public class BaseScreen implements Modeable {
-
+public abstract class BaseScreen implements Modeable {
 
     @FXML
-    public BorderPane parent;
+    public  BorderPane parent;
 
     @FXML
     public TextField titleWrite;
+
+    @FXML
+    public Rectangle colorProgress;
 
     @FXML
     public DatePicker dateInit;
@@ -116,9 +110,13 @@ public class BaseScreen implements Modeable {
     protected ImageView endDateError;
     @FXML
     protected ImageView hourError;
-
+    @FXML
+    protected ColorPicker color;
+    @FXML
+    protected Rectangle colorFig;
+    @FXML
+    protected TableColumn<Task,String> colorTC;
     protected static Task taskShow;
-
     @Override
     public void changeMode(){
         Mode isLight = ControllerTaskToDo.isLight();
@@ -187,25 +185,31 @@ public class BaseScreen implements Modeable {
 
     protected void showTask(Task task){
         if(task!=null){
+            colorFig.setVisible(true);
+            colorFig.setFill(Color.web(task.getColor()));
             titleLabel.setText(task.getName());
             categoryLabel.setText(task.getCategory().toString());
             dateLabel.setText(task.getDateString());
             progressLabel.setText(task.getStatus().toString());
             periodsLabel.setText(task.getTimePeriod().toString());
             descriptionText.setText(task.getDescription());
+            colorProgress.setVisible(true);
+            colorProgress.setFill(Color.web(task.getStatus().getColor()));
         }else{
+            colorFig.setVisible(false);
             titleLabel.setText("");
             categoryLabel.setText("");
             dateLabel.setText("");
             progressLabel.setText("");
             periodsLabel.setText("");
             descriptionText.setText("");
+            colorProgress.setVisible(false);
         }
     }
 
     protected void initShowTask(){
         ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
-        if(!tasks.isEmpty()){
+        if(taskShow==null && !tasks.isEmpty()){
             Task task=tasks.get(0);
             this.taskShow=task;
         }
@@ -224,24 +228,24 @@ public class BaseScreen implements Modeable {
 
     public void selectRemove(){
         if(taskShow!=null){
+            if(taskShow.getTimePeriod()== TimePeriod.SINGLE_DAY){
             ControllerTasks.getInstance().Tasks().remove(taskShow);
+            }else if(ControllerTasks.getInstance().taskSame(taskShow).size()>1){
+                boolean removeRepeat= ControllerAlerts.showConfirmation("This task is repeated, do you want to delete all the tasks?");
+                if(removeRepeat){
+                    ControllerTasks.getInstance().removeTaskRepeat(taskShow);
+                }else{
+                    ControllerTasks.getInstance().Tasks().remove(taskShow);
+                }
+            }
             taskShow=null;
             updateTableTask();
             initShowTask();
         }
     }
 
-    public void selectAdd(){
-        System.out.println("Add");
-    }
 
-    protected void showAlert(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
+
 
     protected void updateTableTask(){
         ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
@@ -252,5 +256,23 @@ public class BaseScreen implements Modeable {
         dateTC.setCellValueFactory(new PropertyValueFactory("dateString"));
         statusTC.setCellValueFactory(new PropertyValueFactory("status"));
         periodsTC.setCellValueFactory(new PropertyValueFactory("timePeriod"));
+        colorTC.setCellValueFactory(new PropertyValueFactory<>("color"));
+        colorTC.setCellFactory(column ->
+            new TableCell<Task, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setGraphic(null);
+                    } else {
+                        Rectangle colorBox = new Rectangle(20, 20, Color.web(item));
+                        setGraphic(colorBox);
+                    }
+                }
+            }
+         );
     }
+
+    public abstract void selectAdd();
 }

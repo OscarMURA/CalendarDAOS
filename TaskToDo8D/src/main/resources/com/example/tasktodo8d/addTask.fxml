@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -72,13 +73,13 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="categoryOption" layoutX="75.0" layoutY="99.0" prefHeight="27.0" prefWidth="182.0" promptText="Category" styleClass="text-color" />
+                  <ComboBox fx:id="categoryOption" layoutX="75.0" layoutY="99.0" prefHeight="27.0" prefWidth="115.0" promptText="Category" styleClass="text-color" />
                   <Label layoutX="12.0" layoutY="316.0" prefHeight="20.0" prefWidth="79.0" styleClass="text-color" text="Description:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="addButtom" layoutX="99.0" layoutY="533.0" mnemonicParsing="false" onAction="#addTask" prefHeight="27.0" prefWidth="78.0" styleClass="text-color" text="Add" />
+                  <Button fx:id="addButtom" layoutX="99.0" layoutY="533.0" mnemonicParsing="false" onAction="#selectAdd" prefHeight="27.0" prefWidth="78.0" styleClass="text-color" text="Add" />
                   <TextArea fx:id="descriptions" layoutX="13.0" layoutY="344.0" prefHeight="152.0" prefWidth="250.0" promptText="Description" styleClass="primary-color" />
                   <RadioButton fx:id="periodicOption" layoutX="88.0" layoutY="174.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="104.0" text="Periodic Dates" />
                   <Label fx:id="endDate" disable="true" layoutX="155.0" layoutY="203.0" prefHeight="20.0" prefWidth="87.0" styleClass="text-color" text="End Date">
@@ -113,10 +114,12 @@
                         <Image url="@../../../icon/error.png" />
                      </image>
                   </ImageView>
+                  <ColorPicker fx:id="color" layoutX="211.0" layoutY="100.0" prefHeight="25.0" prefWidth="43.0" />
                </children></AnchorPane>
             <TableView fx:id="tableTask" layoutX="14.0" layoutY="185.0" prefHeight="369.0" prefWidth="780.0" styleClass="text-color">
               <columns>
                   <TableColumn fx:id="titleTC" prefWidth="157.0" styleClass="text-color" text="Title" />
+                  <TableColumn fx:id="colorTC" prefWidth="75.0" sortable="false" text="Color" />
                   <TableColumn fx:id="dateTC" prefWidth="153.0" sortable="false" styleClass="text-color" text="Date" />
                   <TableColumn fx:id="statusTC" prefWidth="75.0" sortable="false" styleClass="text-color" text="Status" />
                 <TableColumn fx:id="periodsTC" prefWidth="92.0" sortable="false" styleClass="text-color" text="Periods" />
@@ -147,7 +150,8 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="158.0">
                      <children>
                         <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Progress:" />
-                        <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                        <Rectangle fx:id="colorProgress" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" stroke="BLACK" strokeType="INSIDE" width="36.0" />
+                        <ImageView fitHeight="18.0" fitWidth="8.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="progressLabel" prefHeight="26.0" prefWidth="158.0" styleClass="text-color" text="Progress">
                            <font>
                               <Font size="17.0" />
@@ -158,7 +162,6 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="158.0">
                      <children>
                         <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Category:" />
-                        <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="categoryLabel" prefHeight="26.0" prefWidth="160.0" styleClass="text-color" text="Category">
                            <font>
                               <Font size="17.0" />
@@ -222,6 +225,7 @@
                   </AnchorPane>
                </children>
             </VBox>
+            <Rectangle fx:id="colorFig" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="139.0" layoutX="26.0" layoutY="29.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
          </children>
          <styleClass>
             <String fx:value="primary-color" />

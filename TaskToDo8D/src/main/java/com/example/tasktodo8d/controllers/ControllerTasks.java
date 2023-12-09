@@ -17,9 +17,9 @@ public class ControllerTasks  {
 
     private ControllerTasks() {
         tasks = new ArrayList<>();
-        addTask("Work", "Work", "WORK", new GregorianCalendar(2023, 5, 1), "SINGLE_DAY");
-        addTask("Play", "Play", "PERSONAL", new GregorianCalendar(2022, 5, 2), "SINGLE_DAY");
-        addTask("Health", "Health", "HEALTH", new GregorianCalendar(2021, 5, 3), "SINGLE_DAY");
+        addTask("Work", "Work", "WORK", new GregorianCalendar(2023, 5, 1), "SINGLE_DAY","#000080");
+        addTask("Play", "Play", "PERSONAL", new GregorianCalendar(2022, 5, 2), "SINGLE_DAY","#FFFF00");
+        addTask("Health", "Health", "HEALTH", new GregorianCalendar(2021, 5, 3), "SINGLE_DAY","#00FF00");
     }
 
     public static ControllerTasks getInstance() {
@@ -31,13 +31,31 @@ public class ControllerTasks  {
 
 
 
-    public void addTask(String title, String description, String category, Calendar date, String timePeriod) {
-        Task task = new Task(title, description, getCategory(category), date,  getTimePeriod(timePeriod));
-
+    public boolean addTask(String title, String description, String category, Calendar date, String timePeriod, String color) {
+        boolean result;
+        Task task = new Task(title, description, getCategory(category), date,  getTimePeriod(timePeriod), color);
         int insertionIndex = binarySearchInsertionIndex(tasks, task);
-
         tasks.add(insertionIndex, task);
+        result = true;
+        return result;
     }
+
+    public boolean addTask(String title, String description, String category, Calendar date, String timePeriod, String color, Calendar endDate){
+        boolean result;
+        int periodTime =getTimePeriod(timePeriod).getDays();
+        addTask(title,description,category,date,timePeriod,color);
+        do{
+            date=(Calendar) date.clone();
+            date.add(Calendar.DAY_OF_MONTH,periodTime);
+            if(date.before(endDate)){
+                addTask(title,description,category,date,timePeriod,color);
+            }
+        }while(date.before(endDate));
+        result=true;
+        return result;
+    }
+
+
 
     private int binarySearchInsertionIndex(List<Task> tasks, Task newTask) {
         int low = 0;
@@ -55,8 +73,6 @@ public class ControllerTasks  {
         }
         return low;
     }
-
-
 
     private TaskCategory getCategory(String category) {
         switch (category) {
@@ -138,6 +154,27 @@ public class ControllerTasks  {
         }
         return result;
     }
+
+    public boolean removeTaskRepeat(Task task){
+        List<Task> tasksSame=taskSame(task);
+        for(Task task1:tasksSame){
+            tasks.remove(task1);
+
+        }
+        return tasksSame.size()>0;
+    }
+
+    public List<Task> taskSame(Task task){
+        List<Task> result=new ArrayList<>();
+        for(Task task1:tasks){
+            if(task1.equals(task)){
+                result.add(task1);
+            }
+        }
+        return result;
+    }
+
+
 
 
 }
