@@ -6,7 +6,8 @@ public enum TaskStatus {
     TO_DO("To Do", "#FF4500"),          // Por hacer: Orange Red
     IN_PROGRESS("In Progress", "#1E90FF"),  // En progreso: Dodger Blue
     CANCELED("Canceled", "#808080"),   // Cancelada: Gray
-    COMPLETED("Completed", "#32CD32");  // Finalizada: Lime Green
+    COMPLETED("Completed", "#32CD32"), // Finalizada: Lime Green
+    NO_COMPLETED("No Completed", "#FF6347");  // No Finalizada: Tomato
 
     private final String status;
     private final String color;
@@ -14,8 +15,7 @@ public enum TaskStatus {
         this.status = status;
         this.color = color;
     }
-    @Override
-    public String toString() {
+    public String getStatus() {
         return status;
     }
     public String getColor() {

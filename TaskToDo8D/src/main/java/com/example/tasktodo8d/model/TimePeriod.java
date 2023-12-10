@@ -43,8 +43,7 @@ public enum TimePeriod {
      *
      * @return the description of the time period
      */
-    @Override
-    public String toString() {
+    public String getDescription() {
         return description;
     }
 

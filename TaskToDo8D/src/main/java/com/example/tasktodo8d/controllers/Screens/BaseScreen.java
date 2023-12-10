@@ -1,20 +1,38 @@
 package com.example.tasktodo8d.controllers.Screens;
 
+import java.io.IOException;
 import java.util.List;
 
-import com.example.tasktodo8d.controllers.*;
+import com.example.tasktodo8d.controllers.ControllerAlerts;
+import com.example.tasktodo8d.controllers.ControllerTaskToDo;
+import com.example.tasktodo8d.controllers.ControllerTasks;
+import com.example.tasktodo8d.controllers.Mode;
+import com.example.tasktodo8d.controllers.Modeable;
 import com.example.tasktodo8d.model.Task;
+import com.example.tasktodo8d.model.TaskStatus;
 import com.example.tasktodo8d.model.TimePeriod;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 public abstract class BaseScreen implements Modeable {
@@ -146,9 +164,9 @@ public abstract class BaseScreen implements Modeable {
     @FXML
     protected TableColumn<Task, ?> categoryTC;
     @FXML
-    protected TableColumn<Task, ?> periodsTC;
+    protected TableColumn<Task, TimePeriod> periodsTC;
     @FXML
-    protected TableColumn<Task, ?> statusTC;
+    protected TableColumn<Task, TaskStatus> statusTC;
     @FXML
     protected TableColumn<Task,String> colorTC;
     
@@ -183,7 +201,12 @@ public abstract class BaseScreen implements Modeable {
     protected ColorPicker color;
     @FXML
     protected Rectangle colorFig;
-    
+    @FXML
+    protected ImageView backImg;
+    @FXML
+    protected ImageView errorPeriodImg;
+    @FXML
+    protected ImageView colorError;
     protected Mode mode;
     protected boolean isRunning;
     
@@ -205,6 +228,8 @@ public abstract class BaseScreen implements Modeable {
         Image plus = new Image(getClass().getResourceAsStream("/icon/plusL.png"));
         Image remove = new Image(getClass().getResourceAsStream("/icon/removeL.png"));
         Image edit = new Image(getClass().getResourceAsStream("/icon/editL.png"));
+        Image back= new Image(getClass().getResourceAsStream("/icon/backL.png"));
+        backImg.setImage(back);
         plusImg.setImage(plus);
         removeImg.setImage(remove);
         editImg.setImage(edit);
@@ -217,6 +242,8 @@ public abstract class BaseScreen implements Modeable {
         Image plus = new Image(getClass().getResourceAsStream("/icon/plusD.png"));
         Image remove = new Image(getClass().getResourceAsStream("/icon/removeD.png"));
         Image edit = new Image(getClass().getResourceAsStream("/icon/editD.png"));
+        Image back=new Image(getClass().getResourceAsStream("/icon/backD.png"));
+        backImg.setImage(back);
         plusImg.setImage(plus);
         removeImg.setImage(remove);
         editImg.setImage(edit);
@@ -245,20 +272,7 @@ public abstract class BaseScreen implements Modeable {
         amPM.setValue("AM");
     }
 
-    /**
-     * Initializes the period options for the screen.
-     * Adds the available period options to the periodOptions ComboBox
-     * and sets the default value to "SINGLE_DAY".
-     */
-    protected void initPeriodOptions(){
-        periodsOptions.getItems().addAll(
-                "SINGLE_DAY", "EVERY_DAY", "EVERY_TWO_DAYS",
-                "EVERY_THREE_DAYS", "EVERY_FOUR_DAYS", "EVERY_FIVE_DAYS",
-                "EVERY_SIX_DAYS", "WEEKLY", "BIWEEKLY", "MONTHLY",
-                "BIMONTHLY", "SEMESTRAL", "QUARTERLY", "ANNUAL"
-        );
-        periodsOptions.setValue("SINGLE_DAY");
-    }
+    
 
     /**
      * Initializes the combo boxes for category, hour, and period options.
@@ -266,7 +280,6 @@ public abstract class BaseScreen implements Modeable {
     protected void initComBoxes(){
         initCategoryOptions();
         initHourOptions();
-        initPeriodOptions();
     }
 
     /**
@@ -283,8 +296,8 @@ public abstract class BaseScreen implements Modeable {
             titleLabel.setText(task.getName());
             categoryLabel.setText(task.getCategory().toString());
             dateLabel.setText(task.getDateString());
-            progressLabel.setText(task.getStatus().toString());
-            periodsLabel.setText(task.getTimePeriod().toString());
+            progressLabel.setText(task.getStatus().getStatus());
+            periodsLabel.setText(task.getTimePeriod().getDescription());
             descriptionText.setText(task.getDescription());
             colorProgress.setVisible(true);
             colorProgress.setFill(Color.web(task.getStatus().getColor()));
@@ -324,7 +337,12 @@ public abstract class BaseScreen implements Modeable {
     }
 
     public void selectEdit(){
-        System.out.println("Edit");
+        try {
+            isRunning=false;
+            ControllerTaskToDo.loadScreen("modifyTask.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -375,15 +393,26 @@ public abstract class BaseScreen implements Modeable {
         statusTC.setCellValueFactory(new PropertyValueFactory("status"));
         periodsTC.setCellValueFactory(new PropertyValueFactory("timePeriod"));
         colorTC.setCellValueFactory(new PropertyValueFactory<>("color"));
+        columnsCellFactories();
+    }
+
+    private void columnsCellFactories(){
+        statusTC.setCellFactory(column->
+        new TableCell<Task,TaskStatus>(){
+            @Override
+            protected void updateItem(TaskStatus item, boolean empty) {
+                super.updateItem(item, empty);
+                if(item==null || empty){
+                    setText(null);
+                }else{
+                    setText(item.getStatus());
+                    Circle colorBox = new Circle(10, Color.web(item.getColor()));
+                    setGraphic(colorBox);
+                }
+            }
+        });
         colorTC.setCellFactory(column ->
             new TableCell<Task, String>() {
-                /**
-                 * Updates the item in the cell with the specified color.
-                 * If the item is null or empty, the cell will be empty.
-                 * Otherwise, a colored rectangle will be displayed in the cell.
-                 * @param item  the color value to be displayed in the cell
-                 * @param empty a boolean indicating whether the cell is empty or not
-                 */
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
@@ -391,18 +420,45 @@ public abstract class BaseScreen implements Modeable {
                     if (item == null || empty) {
                         setGraphic(null);
                     } else {
-                        Rectangle colorBox = new Rectangle(20, 20, Color.web(item));
+                        Circle colorBox = new Circle(10,  Color.web(item));
                         setGraphic(colorBox);
                     }
                 }
             }
          );
+        periodsTC.setCellFactory(column -> new TableCell<Task, TimePeriod>() {
+            @Override
+            protected void updateItem(TimePeriod item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item.getDescription());
+                }
+            }
+        });
     }
-
-
-
     /**
-     * Selects the "Add" option.
+     * The function "selectBack" sets the variable "isRunning" to false and loads the "showTask.fxml" screen.
      */
-    public abstract void selectAdd();
+    public void selectBack(){
+        isRunning=false;
+        try {
+            ControllerTaskToDo.loadScreen("showTask.fxml");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    /**
+     * Selects the "Add" option, which loads the "addTask.fxml" screen.
+     * @throws RuntimeException if an IOException occurs while loading the screen.
+     */
+    public void selectAdd() {
+        try {
+            isRunning=false;
+            ControllerTaskToDo.loadScreen("addTask.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

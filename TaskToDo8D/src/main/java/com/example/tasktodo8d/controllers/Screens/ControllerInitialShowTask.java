@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 
 public class ControllerInitialShowTask extends BaseScreen implements Initializable {
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         isRunning=true;
@@ -34,17 +33,4 @@ public class ControllerInitialShowTask extends BaseScreen implements Initializab
         }).start();
     }
 
-    /**
-     * Selects the "Add" option, which loads the "addTask.fxml" screen.
-     * @throws RuntimeException if an IOException occurs while loading the screen.
-     */
-    @Override
-    public void selectAdd() {
-        try {
-            isRunning=false;
-            ControllerTaskToDo.loadScreen("addTask.fxml");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

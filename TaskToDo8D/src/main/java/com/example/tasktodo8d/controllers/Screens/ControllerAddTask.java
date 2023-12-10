@@ -54,6 +54,8 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
             endCalendar.setDisable(true);
             labelPeriod.setDisable(true);
             periodsOptions.setDisable(true);
+            errorPeriodImg.setVisible(false);
+            endDateError.setVisible(false);
         } else {
             endDate.setDisable(false);
             endCalendar.setDisable(false);
@@ -97,7 +99,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         boolean taskValid=isTaskValid(title);
         boolean hourValid=isHourValid();
         boolean dateValid=isDateValid();
-        if(taskValid && hourValid && dateValid){
+        if(taskValid && hourValid && dateValid && !colorToString(color.getValue()).equals("#FFFFFF")){
             int year=dateInit.getValue().getYear();
             int month=dateInit.getValue().getMonthValue()-1;
             int day=dateInit.getValue().getDayOfMonth();
@@ -135,7 +137,19 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
                 }
             }
         }else{
-            ControllerAlerts.errorContext("Please validate all fields correctly");
+            String errors="";
+            errorPeriodImg.setVisible(false);
+            colorError.setVisible(false);
+            if(periodsOptions.getValue()=="SINGLE_DAY"){
+                errors="--select a period diferent to SINGLE_DAY";
+                errorPeriodImg.setVisible(true);
+            }
+            if(colorToString(color.getValue()).equals("#FFFFFF")){
+
+               errors="--select a color";
+               colorError.setVisible(true);
+            }
+            ControllerAlerts.errorContext("Please validate all fields correctly"+errors);
         }
     }
 
@@ -267,6 +281,28 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
 
         return String.format("#%02X%02X%02X", red, green, blue);
     }
+
+    
+    @Override
+    protected void initComBoxes(){
+        super.initComBoxes();
+        initPeriodOptions();
+    }
+    /**
+     * Initializes the period options for the screen.
+     * Adds the available period options to the periodOptions ComboBox
+     * and sets the default value to "SINGLE_DAY".
+     */
+    private void initPeriodOptions(){
+        periodsOptions.getItems().addAll(
+                "SINGLE_DAY", "EVERY_DAY", "EVERY_TWO_DAYS",
+                "EVERY_THREE_DAYS", "EVERY_FOUR_DAYS", "EVERY_FIVE_DAYS",
+                "EVERY_SIX_DAYS", "WEEKLY", "BIWEEKLY", "MONTHLY",
+                "BIMONTHLY", "SEMESTRAL", "QUARTERLY", "ANNUAL"
+        );
+        periodsOptions.setValue("SINGLE_DAY");
+    }
+
 
 
 

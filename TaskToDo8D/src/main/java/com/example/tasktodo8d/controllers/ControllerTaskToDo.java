@@ -274,6 +274,10 @@ public class ControllerTaskToDo implements Initializable, Modeable {
         timeline.play();
     }
 
+    /**
+     * The function returns the search task as a string.
+     * @return The method is returning the value of the variable "searchTask".
+     */
     public static String getSearchTask() {
         return searchTask;
     }

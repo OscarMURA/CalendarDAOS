@@ -115,6 +115,22 @@
                      </image>
                   </ImageView>
                   <ColorPicker fx:id="color" layoutX="211.0" layoutY="100.0" prefHeight="25.0" prefWidth="43.0" />
+                  <ImageView fx:id="backImg" fitHeight="40.0" fitWidth="40.0" layoutX="25.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../icon/backD.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="back" layoutX="28.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectBack" opacity="0.0" prefHeight="35.0" prefWidth="34.0" />
+                  <ImageView fx:id="errorPeriodImg" fitHeight="14.0" fitWidth="20.0" focusTraversable="true" layoutX="239.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../../icon/error.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="colorError" fitHeight="16.0" fitWidth="16.0" focusTraversable="true" layoutX="248.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../../icon/error.png" />
+                     </image>
+                  </ImageView>
                </children></AnchorPane>
             <TableView fx:id="tableTask" layoutX="14.0" layoutY="185.0" prefHeight="369.0" prefWidth="780.0" styleClass="text-color">
               <columns>

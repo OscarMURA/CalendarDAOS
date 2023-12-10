@@ -224,6 +224,8 @@
                </children>
             </HBox>
             <Rectangle fx:id="colorFig" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="125.0" layoutX="44.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+            <Button fx:id="back" layoutX="1020.0" layoutY="148.0" mnemonicParsing="false" text="Button" visible="false" />
+            <ImageView fx:id="backImg" fitHeight="17.0" fitWidth="17.0" layoutX="1053.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" visible="false" />
          </children>
          <styleClass>
             <String fx:value="primary-color" />
