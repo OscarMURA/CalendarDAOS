@@ -1,0 +1,20 @@
+.root {
+    -fx-background-color: #333333; /* Fondo oscuro */
+}
+
+.dialog-pane {
+    -fx-background-color: #444444; /* Color del panel de diálogo */
+}
+
+.label {
+    -fx-text-fill: #ffffff; /* Color del texto */
+}
+
+.button {
+    -fx-background-color: #555555; /* Color de fondo de los botones */
+    -fx-text-fill: #ffffff; /* Color del texto de los botones */
+}
+
+.button:hover {
+    -fx-background-color: #777777; /* Cambio de color al pasar el ratón sobre los botones */
+}

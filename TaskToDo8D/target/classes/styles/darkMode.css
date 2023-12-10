@@ -183,3 +183,16 @@
     -fx-border-width: 2px; /* Ancho del borde de la ventana */
 }
 
+.menu-item {
+    -fx-background-color: #333333; /* Fondo oscuro */
+    -fx-text-fill: #ffffff; /* Texto blanco */
+}
+
+.menu-item:hover {
+    -fx-background-color: #555555; /* Cambio de color al pasar el ratón */
+}
+.context-menu {
+    -fx-background: transparent; /* Fondo transparente del menú emergente */
+}
+
+

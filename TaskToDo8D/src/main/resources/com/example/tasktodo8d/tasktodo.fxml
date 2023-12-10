@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -23,18 +24,22 @@
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1100.0">
          <children>
             <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" />
-            <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="180.0">
+            <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="127.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Add" />
+                <Menu fx:id="homeMenu" mnemonicParsing="false" text="home">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showTask" text="Show Tasks" />
+                        <MenuItem mnemonicParsing="false" onAction="#addTask" text="Add Task" />
+                        <MenuItem mnemonicParsing="false" onAction="#editTask" text="Edit Task" />
+                     </items></Menu>
                 <Menu mnemonicParsing="false" text="Consult" />
-                <Menu mnemonicParsing="false" text="Calendar" />
               </menus>
                <styleClass>
                   <String fx:value="round-border" />
                   <String fx:value="primary-color" />
                </styleClass>
             </MenuBar>
-            <ImageView fitHeight="23.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="23.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true" />
             <AnchorPane prefHeight="40.0" prefWidth="471.0">
                <children>
                   <TextField fx:id="search" layoutX="50.0" layoutY="8.0" prefHeight="23.0" prefWidth="385.0" promptText="Search">

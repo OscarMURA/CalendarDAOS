@@ -23,6 +23,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         isRunning=true;
         initComBoxes();
         initShowTask();
+        updateDateInitPicker(Calendar.getInstance());
         new Thread(() -> {
             while (isRunning) {
                 Platform.runLater(() -> {
@@ -33,7 +34,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
                     showTask(taskShow);
                 });
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -95,21 +96,11 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         String description = descriptions.getText();
         String category = categoryOption.getValue();
         Calendar date = Calendar.getInstance();
-        GregorianCalendar dateG=new GregorianCalendar();
         boolean taskValid=isTaskValid(title);
         boolean hourValid=isHourValid();
         boolean dateValid=isDateValid();
         if(taskValid && hourValid && dateValid && !colorToString(color.getValue()).equals("#FFFFFF")){
-            int year=dateInit.getValue().getYear();
-            int month=dateInit.getValue().getMonthValue()-1;
-            int day=dateInit.getValue().getDayOfMonth();
-            int hour=Integer.parseInt(this.hour.getValue());
-            int minutes=Integer.parseInt(this.minutes.getValue());
-            dateG.set(year,month,day,hour,minutes);
-            System.out.println(dateG.getTime());
-            int amPM=this.amPM.getValue().equals("AM")?Calendar.AM:Calendar.PM;
-            dateG.set(Calendar.AM_PM,amPM);
-            date.setTime(dateG.getTime());
+            date=getCalendar();
             String period = periodsOptions.getValue();
             Color colorSelect = color.getValue();
             if(period=="SINGLE_DAY" ) {
@@ -129,6 +120,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
                 taskShow=(ControllerTasks.getInstance().getTask(title));
                 updateTableTask();
                 initElements();
+                ControllerAlerts.showInformation("Task added successfully");
                 try {
                     ControllerTaskToDo.loadScreen("showTask.fxml");
                     isRunning=false;
@@ -153,23 +145,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         }
     }
 
-    /**
-     * Checks if the given date is valid.
-     * @param date The date to be validated.
-     * @return true if the date is valid, false otherwise.
-     */
-    private boolean dateValid(Calendar date){
-        Calendar now=Calendar.getInstance();
-        boolean allow=true;
-        dateInitError.setVisible(false);
-
-        if(date.before(now)) {
-            dateInitError.setVisible(true);
-            ControllerAlerts.errorContext("Please validate the date, it is before the current date");
-            allow= false;
-        }
-        return allow;
-    }
+    
 
     /**
      * Checks if the given end date is valid based on the given start date.
@@ -269,19 +245,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         }
         return allow;
     }
-    /**
-     * Converts a Color object to its corresponding hexadecimal string representation.
-     * @param color the Color object to convert
-     * @return the hexadecimal string representation of the color
-     */
-    private String colorToString(Color color) {
-        int red = (int) (color.getRed() * 255);
-        int green = (int) (color.getGreen() * 255);
-        int blue = (int) (color.getBlue() * 255);
-
-        return String.format("#%02X%02X%02X", red, green, blue);
-    }
-
+    
     
     @Override
     protected void initComBoxes(){

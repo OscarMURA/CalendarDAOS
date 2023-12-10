@@ -61,6 +61,12 @@
     -fx-stroke-width: 1; /* Ancho del borde del rectángulo */
 }
 
+.rectangle2 {
+    -fx-fill: #c5c5c5; /* Color de relleno del rectángulo */
+    -fx-stroke: #CCCCCC; /* Color del borde del rectángulo */
+    -fx-stroke-width: 100; /* Ancho del borde del rectángulo */
+}
+
 
 
 /* light-mode.css */
@@ -158,3 +164,15 @@
     -fx-border-width: 2px; /* Ancho del borde de la ventana */
 }
 
+.menu-item {
+    -fx-background-color: #f0f0f0; /* Fondo claro */
+    -fx-text-fill: #333333; /* Texto oscuro */
+    -fx-background-radius: 10; /* Bordes redondeados */
+}
+
+.menu-item:hover {
+    -fx-background-color: #dddddd; /* Cambio de color al pasar el ratón */
+}
+.context-menu {
+    -fx-background: transparent; /* Fondo transparente del menú emergente */
+}

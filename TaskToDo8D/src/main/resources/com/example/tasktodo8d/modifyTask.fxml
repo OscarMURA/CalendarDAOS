@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1100.0" styleClass="primary-color" stylesheets="@../../../styles/darkMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tasktodo8d.controllers.Screens.ControllerModifyTask">
-   <top>
+   <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="158.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" styleClass="rectangle" width="779.0" />
@@ -79,7 +79,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="addButtom" layoutX="99.0" layoutY="533.0" mnemonicParsing="false" onAction="#selectAdd" prefHeight="27.0" prefWidth="78.0" styleClass="text-color" text="Add" />
+                  <Button layoutX="99.0" layoutY="533.0" mnemonicParsing="false" onAction="#selectEdit" prefHeight="27.0" prefWidth="78.0" styleClass="text-color" text="Modify" />
                   <TextArea fx:id="descriptions" layoutX="13.0" layoutY="344.0" prefHeight="152.0" prefWidth="250.0" promptText="Description" styleClass="primary-color" />
                   <RadioButton fx:id="periodicOption" layoutX="88.0" layoutY="174.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="104.0" text="Periodic Dates" visible="false" />
                   <Label fx:id="endDate" disable="true" layoutX="155.0" layoutY="203.0" prefHeight="20.0" prefWidth="87.0" styleClass="text-color" text="End Date" visible="false">
@@ -136,11 +136,11 @@
             <TableView fx:id="tableTask" layoutX="14.0" layoutY="185.0" prefHeight="369.0" prefWidth="780.0" styleClass="text-color">
               <columns>
                   <TableColumn fx:id="titleTC" prefWidth="157.0" styleClass="text-color" text="Title" />
-                  <TableColumn fx:id="colorTC" prefWidth="75.0" sortable="false" text="Color" />
-                  <TableColumn fx:id="dateTC" prefWidth="153.0" sortable="false" styleClass="text-color" text="Date" />
-                  <TableColumn fx:id="statusTC" prefWidth="75.0" sortable="false" styleClass="text-color" text="Status" />
+                  <TableColumn fx:id="colorTC" prefWidth="60.0" sortable="false" text="Color" />
+                  <TableColumn fx:id="dateTC" prefWidth="168.0" sortable="false" styleClass="text-color" text="Date" />
+                  <TableColumn fx:id="statusTC" prefWidth="82.0" sortable="false" styleClass="text-color" text="Status" />
                 <TableColumn fx:id="periodsTC" prefWidth="92.0" sortable="false" styleClass="text-color" text="Periods" />
-                  <TableColumn fx:id="categoryTC" prefWidth="127.0" sortable="false" styleClass="text-color" text="Category" />
+                  <TableColumn fx:id="categoryTC" prefWidth="120.0" sortable="false" styleClass="text-color" text="Category" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -148,7 +148,7 @@
             </TableView>
             <TextArea fx:id="descriptionText" editable="false" layoutX="416.0" layoutY="36.0" prefHeight="126.0" prefWidth="270.0" />
             <Label layoutX="416.0" layoutY="19.0" prefHeight="17.0" prefWidth="66.0" styleClass="text-color" text="Description:" />
-            <VBox layoutX="61.0" layoutY="27.0" prefHeight="134.0" prefWidth="328.0">
+            <VBox layoutX="76.0" layoutY="27.0" prefHeight="135.0" prefWidth="342.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="303.0">
                      <children>
@@ -199,7 +199,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="158.0">
                      <children>
                         <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Date:" />
-                        <Label fx:id="dateLabel" prefHeight="26.0" prefWidth="221.0" styleClass="text-color" text="Date">
+                        <Label fx:id="dateLabel" prefHeight="26.0" prefWidth="289.0" styleClass="text-color" text="Date">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -249,5 +249,5 @@
             <String fx:value="round-border" />
          </styleClass>
       </AnchorPane>
-   </top>
+   </left>
 </BorderPane>

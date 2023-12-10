@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
+import com.example.tasktodo8d.controllers.ControllerAlerts;
+import com.example.tasktodo8d.controllers.ControllerTasks;
 import com.example.tasktodo8d.model.Task;
+import com.example.tasktodo8d.model.TimePeriod;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -58,7 +61,7 @@ public class ControllerModifyTask extends BaseScreen implements Initializable {
      * The function initializes a ComboBox with a list of status options.
      */
     private void initStatusCombox() {
-        statusCombox.getItems().addAll("TO_DO", "IN_PROGRESS", "CANCELED", "COMPLETED", "NO_COMPLETED");
+        statusCombox.getItems().addAll("TO_DO", "IN_PROGRESS", "CANCELED", "COMPLETED");
     }
 
     /**
@@ -73,6 +76,7 @@ public class ControllerModifyTask extends BaseScreen implements Initializable {
             descriptions.setText(taskModify.getDescription());
             categoryOption.setValue(taskModify.getCategory() + "");
             statusCombox.setValue(taskModify.getStatus() + "");
+            dateInitError.setVisible(false);
             updateDate();
         }
     }
@@ -84,11 +88,7 @@ public class ControllerModifyTask extends BaseScreen implements Initializable {
     private void updateDate() {
         Calendar date = Calendar.getInstance();
         date = taskModify.getDate();
-        LocalDate localDate = LocalDate.of(
-                date.get(Calendar.YEAR),
-                date.get(Calendar.MONTH) + 1,
-                date.get(Calendar.DAY_OF_MONTH));
-        dateInit.setValue(localDate);
+        updateDateInitPicker(date);
         int hour = date.get(Calendar.HOUR_OF_DAY);
         hour = (hour > 12) ? hour - 12 : hour;
         hour = (hour == 0) ? 12 : hour;
@@ -97,6 +97,26 @@ public class ControllerModifyTask extends BaseScreen implements Initializable {
         this.hour.setValue(hour + "");
         this.minutes.setValue(minutes + "");
         this.amPM.setValue(amPM);
+    }
+
+    @Override
+    public void selectEdit(){
+        String changes="";
+        Calendar date=Calendar.getInstance();
+        date=getCalendar();
+        boolean allow=dateValid(date);
+        boolean thereChanges=taskShow.getName().equals(titleWrite.getText()) && taskShow.getDescription().equals(descriptions.getText()) && categoryOption.getValue().equals(taskShow.getCategory()+"") && taskShow.getColor().equals(colorToString(color.getValue()));
+        if(allow && (taskShow.getTimePeriod().equals(TimePeriod.SINGLE_DAY)) || thereChanges){
+            changes=ControllerTasks.getInstance().modifyTask(taskShow, titleWrite.getText(), descriptions.getText(), categoryOption.getValue(), date,statusCombox.getValue(),colorToString(color.getValue())); 
+        }else if(allow){
+            boolean modifyOtherTask=ControllerAlerts.showConfirmation("You can only modify the name, description, category or color of the other tasks.","Do you want to modify the other tasks?");
+            if(modifyOtherTask){
+                changes=ControllerTasks.getInstance().modifyTasksPeriodics(taskShow, titleWrite.getText(), descriptions.getText(), categoryOption.getValue(), date,statusCombox.getValue(),colorToString(color.getValue()));
+            }else{
+                changes=ControllerTasks.getInstance().modifyTask(taskShow, titleWrite.getText(), descriptions.getText(), categoryOption.getValue(), date,statusCombox.getValue(),colorToString(color.getValue()));
+            }
+        }
+        if(allow)ControllerAlerts.showInformation(changes);
     }
 
 }

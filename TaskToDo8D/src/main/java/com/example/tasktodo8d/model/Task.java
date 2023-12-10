@@ -1,8 +1,9 @@
 package com.example.tasktodo8d.model;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
+import java.util.Locale;
 
 
 /**
@@ -81,6 +82,7 @@ public class Task {
 
         public void setDate(Calendar date) {
                 this.date = date;
+                dateString = getDateAsString();
         }
 
         public TaskStatus getStatus() {
@@ -99,9 +101,21 @@ public class Task {
                 this.timePeriod = timePeriod;
         }
 
+        /**
+         * The function getDateAsString() returns a formatted string representation of a date and time.
+         * 
+         * @return The method is returning a formatted date string.
+         */
         private String getDateAsString(){
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd --hh:mm a");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat hourF= new SimpleDateFormat("hh:mm a");
+                String hour = hourF.format(this.date.getTime());
                 String date = format.format(this.date.getTime());
+                if(!hour.contains("11:59 p.")){
+                        date = date + "  " + hour;
+                }
+                int dayOfWeek = this.date.get(Calendar.DAY_OF_WEEK);
+                date = new DateFormatSymbols(Locale.ENGLISH).getWeekdays()[dayOfWeek] + " " + date;
                 return date;
         }
 

@@ -11,12 +11,14 @@ import com.example.tasktodo8d.AppTaskToDo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -106,10 +108,16 @@ public class ControllerTaskToDo implements Initializable, Modeable {
     private static String searchTask;
 
     /**
-        * The label used to display the result amounts.
-        */
+     * The label used to display the result amounts.
+     */
     @FXML
     private Label resultLabel;
+
+    @FXML
+    private Menu homeMenu;
+    private static String lastScreen;
+    
+
 
     /**
      * Returns the mode of the application.
@@ -131,6 +139,7 @@ public class ControllerTaskToDo implements Initializable, Modeable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        lastScreen="";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         new Thread(() -> {
             while (true) {
@@ -142,7 +151,7 @@ public class ControllerTaskToDo implements Initializable, Modeable {
                 });
                 updateDateSearchWithFielSearch();
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -234,19 +243,23 @@ public class ControllerTaskToDo implements Initializable, Modeable {
     }
 
     /**
-     * Adds a task to the application.
+     * Show a task to the application.
      * This method loads the "showTask.fxml" file using FXMLLoader and sets it as
      * the center of the miPanel BorderPane.
      * 
      * @throws IOException if an I/O error occurs while loading the fxml file.
      */
-    public void addTask() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(AppTaskToDo.class.getResource("showTask.fxml"));
-        BorderPane root = loader.load();
-        miPanel.getChildren().clear();
-        miPanel.setCenter(root);
+    public void showTask(ActionEvent event) throws IOException {
+        loadScreen("showTask.fxml");
+    }
 
+    public void editTask(ActionEvent event) throws IOException {
+        loadScreen("modifyTask.fxml");
+
+    }
+
+    public void addTask(ActionEvent event) throws IOException {
+        loadScreen("addTask.fxml");
     }
 
     /**
@@ -260,22 +273,27 @@ public class ControllerTaskToDo implements Initializable, Modeable {
      */
     public static void loadScreen(String fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(AppTaskToDo.class.getResource(fxml));
-        BorderPane root = loader.load();
-        if (isLight == Mode.LIGHT) {
-            root.getStylesheets().add(AppTaskToDo.class.getResource("/styles/lightMode.css").toExternalForm());
-        } else {
-            root.getStylesheets().add(AppTaskToDo.class.getResource("/styles/darkMode.css").toExternalForm());
+        if (!lastScreen.equals(fxml)){
+            lastScreen=fxml;
+            loader.setLocation(AppTaskToDo.class.getResource(fxml));
+            BorderPane root = loader.load();
+            if (isLight == Mode.LIGHT) {
+                root.getStylesheets().add(AppTaskToDo.class.getResource("/styles/lightMode.css").toExternalForm());
+            } else {
+                root.getStylesheets().add(AppTaskToDo.class.getResource("/styles/darkMode.css").toExternalForm());
+            }
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.2), event -> {
+                staticPanel.getChildren().clear();
+                staticPanel.setCenter(root);
+            }));
+            timeline.play();
         }
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.15), event -> {
-            staticPanel.getChildren().clear();
-            staticPanel.setCenter(root);
-        }));
-        timeline.play();
+
     }
 
     /**
      * The function returns the search task as a string.
+     * 
      * @return The method is returning the value of the variable "searchTask".
      */
     public static String getSearchTask() {

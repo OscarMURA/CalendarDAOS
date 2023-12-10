@@ -25,7 +25,7 @@ public class ControllerInitialShowTask extends BaseScreen implements Initializab
                     showTask(taskShow);
                 });
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
