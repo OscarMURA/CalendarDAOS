@@ -17,7 +17,6 @@ import javafx.scene.paint.Color;
 
 
 public class ControllerAddTask extends BaseScreen implements Initializable  {
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         isRunning=true;
@@ -40,7 +39,7 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
                 }
             }
         }).start();
-        setLightMode();
+        
     }
 
 
@@ -266,8 +265,5 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         );
         periodsOptions.setValue("SINGLE_DAY");
     }
-
-
-
 
 }

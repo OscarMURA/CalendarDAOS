@@ -9,10 +9,8 @@ import java.time.LocalDate;
 import com.example.tasktodo8d.controllers.ControllerAlerts;
 import com.example.tasktodo8d.controllers.ControllerTaskToDo;
 import com.example.tasktodo8d.controllers.ControllerTasks;
-import com.example.tasktodo8d.controllers.Mode;
 import com.example.tasktodo8d.controllers.Modeable;
 import com.example.tasktodo8d.model.Task;
-import com.example.tasktodo8d.model.TaskStatus;
 import com.example.tasktodo8d.model.TimePeriod;
 
 import javafx.collections.FXCollections;
@@ -25,38 +23,19 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
-public abstract class BaseScreen implements Modeable {
-
-    /**
-     * The parent container for the UI elements in the screen.
-     */
-    @FXML
-    public BorderPane parent;
+public abstract class BaseScreen extends BaseTableView implements Modeable {
 
     /**
      * The text field for entering the title.
      */
     @FXML
     public TextField titleWrite;
-
-    /**
-     * Represents a rectangular shape in JavaFX.
-     */
-    @FXML
-    public Rectangle colorProgress;
 
     /**
      * The DatePicker class represents a control that allows the user to select a
@@ -117,78 +96,23 @@ public abstract class BaseScreen implements Modeable {
      */
     @FXML
     protected Label endDate;
-
     /**
      * The label used to display the period.
      */
     @FXML
     protected Label labelPeriod;
-
-    /**
-     * The label used to display the title on the screen.
-     */
-    @FXML
-    protected Label titleLabel;
-
-    /**
-     * The label used to display the date.
-     */
-    @FXML
-    protected Label dateLabel;
     /**
      * The ComboBox that displays the available periods options.
      */
     @FXML
     protected ComboBox<String> periodsOptions;
-
-    /**
-     * The label used to display periods.
-     */
-    @FXML
-    protected Label periodsLabel;
-
-    /**
-     * The label used to display the category.
-     */
-    @FXML
-    protected Label categoryLabel;
-
-    /**
-     * The progress label used in the base screen.
-     */
-    @FXML
-    protected Label progressLabel;
-
-    /**
-     * The table column for the title of a task.
-     */
-    @FXML
-    protected TableColumn<Task, String> titleTC;
-
-    @FXML
-    protected TableColumn<Task, String> dateTC;
-    @FXML
-    protected TableColumn<Task, ?> categoryTC;
-    @FXML
-    protected TableColumn<Task, TimePeriod> periodsTC;
-    @FXML
-    protected TableColumn<Task, TaskStatus> statusTC;
-    @FXML
-    protected TableColumn<Task, String> colorTC;
-
     protected static Task taskShow;
-    @FXML
-    protected TableView tableTask;
-
-    @FXML
-    protected TextArea descriptionText;
     @FXML
     ImageView plusImg;
     @FXML
     ImageView removeImg;
     @FXML
     ImageView editImg;
-
     @FXML
     protected Button removeBtn;
     @FXML
@@ -206,27 +130,13 @@ public abstract class BaseScreen implements Modeable {
     @FXML
     protected ColorPicker color;
     @FXML
-    protected Rectangle colorFig;
-    @FXML
     protected ImageView backImg;
     @FXML
     protected ImageView errorPeriodImg;
     @FXML
     protected ImageView colorError;
-    protected Mode mode;
-    protected boolean isRunning;
 
-    @Override
-    public void changeMode() {
-        Mode isLight = ControllerTaskToDo.isLight();
-        if (isLight == Mode.LIGHT) {
-            setLightMode();
-        } else if (isLight == Mode.DARK) {
-            setDarkMode();
-        }
-
-    }
-
+    
     @Override
     public void setLightMode() {
         parent.getStylesheets().clear();
@@ -281,53 +191,13 @@ public abstract class BaseScreen implements Modeable {
         amPM.setValue("PM");
     }
 
-    /**
-     * Initializes the combo boxes for category, hour, and period options.
-     */
+    @Override
     protected void initComBoxes() {
         initCategoryOptions();
         initHourOptions();
     }
 
-    /**
-     * Displays the details of a given task on the screen.
-     * If the task is not null, it sets the visibility and values of various UI
-     * elements based on the task's properties.
-     * If the task is null, it hides the UI elements.
-     *
-     * @param task The task to be displayed on the screen.
-     */
-    protected void showTask(Task task) {
-        if (task != null) {
-            colorFig.setVisible(true);
-            colorFig.setFill(Color.web(task.getColor()));
-            titleLabel.setText(task.getName());
-            categoryLabel.setText(task.getCategory().toString());
-            dateLabel.setText(task.getDateString());
-            progressLabel.setText(task.getStatus().getStatus());
-            periodsLabel.setText(task.getTimePeriod().getDescription());
-            descriptionText.setText(task.getDescription());
-            colorProgress.setVisible(true);
-            colorProgress.setFill(Color.web(task.getStatus().getColor()));
-        } else {
-            colorFig.setVisible(false);
-            titleLabel.setText("");
-            categoryLabel.setText("");
-            dateLabel.setText("");
-            progressLabel.setText("");
-            periodsLabel.setText("");
-            descriptionText.setText("");
-            colorProgress.setVisible(false);
-        }
-    }
-
-    /**
-     * Initializes the show task functionality.
-     * Retrieves a list of tasks from the controller and sets the first task as the
-     * task to be shown.
-     * If no task is currently being shown and the list of tasks is not empty, the
-     * first task in the list is selected.
-     */
+    @Override
     protected void initShowTask() {
         ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
         if (taskShow == null && !tasks.isEmpty()) {
@@ -336,9 +206,7 @@ public abstract class BaseScreen implements Modeable {
         }
     }
 
-    /**
-     * Updates the selected task in the table view.
-     */
+    @Override
     protected void selectionTask() {
         Task task = (Task) tableTask.getSelectionModel().getSelectedItem();
         if (task != null) {
@@ -384,14 +252,7 @@ public abstract class BaseScreen implements Modeable {
         }
     }
 
-    /**
-     * Updates the table with the latest tasks.
-     * Retrieves the tasks from the ControllerTasks instance and sets them in the
-     * table.
-     * Configures the cell value factories for each column in the table.
-     * Sets a custom cell factory for the color column to display a colored
-     * rectangle based on the color value.
-     */
+    @Override
     protected void updateTableTask() {
         List<Task> tasksControl = ControllerTasks.getInstance().Tasks();
         String searchTask = ControllerTaskToDo.getSearchTask();
@@ -403,53 +264,7 @@ public abstract class BaseScreen implements Modeable {
         ObservableList<Task> tasks = FXCollections.observableArrayList(tasksControl);
         tableTask.setItems(tasks);
         FilteredList<Task> filteredData = new FilteredList<>(tasks, p -> true);
-        titleTC.setCellValueFactory(new PropertyValueFactory("name"));
-        categoryTC.setCellValueFactory(new PropertyValueFactory("category"));
-        dateTC.setCellValueFactory(new PropertyValueFactory("dateString"));
-        statusTC.setCellValueFactory(new PropertyValueFactory("status"));
-        periodsTC.setCellValueFactory(new PropertyValueFactory("timePeriod"));
-        colorTC.setCellValueFactory(new PropertyValueFactory<>("color"));
-        columnsCellFactories();
-    }
-
-    private void columnsCellFactories() {
-        statusTC.setCellFactory(column -> new TableCell<Task, TaskStatus>() {
-            @Override
-            protected void updateItem(TaskStatus item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || empty) {
-                    setText(null);
-                } else {
-                    setText(item.getStatus());
-                    Circle colorBox = new Circle(10, Color.web(item.getColor()));
-                    setGraphic(colorBox);
-                }
-            }
-        });
-        colorTC.setCellFactory(column -> new TableCell<Task, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item == null || empty) {
-                    setGraphic(null);
-                } else {
-                    Circle colorBox = new Circle(10, Color.web(item));
-                    setGraphic(colorBox);
-                }
-            }
-        });
-        periodsTC.setCellFactory(column -> new TableCell<Task, TimePeriod>() {
-            @Override
-            protected void updateItem(TimePeriod item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || empty) {
-                    setText(null);
-                } else {
-                    setText(item.getDescription());
-                }
-            }
-        });
+        super.updateTableTask();
     }
 
     /**
