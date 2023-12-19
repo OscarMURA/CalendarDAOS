@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -32,7 +33,10 @@
                         <MenuItem mnemonicParsing="false" onAction="#addTask" text="Add Task" />
                         <MenuItem mnemonicParsing="false" onAction="#editTask" text="Edit Task" />
                      </items></Menu>
-                <Menu mnemonicParsing="false" text="Consult" />
+                <Menu mnemonicParsing="false" text="Consult">
+                     <items>
+                        <CheckMenuItem mnemonicParsing="false" onAction="#consultsTasks" text="Consults" />
+                     </items></Menu>
               </menus>
                <styleClass>
                   <String fx:value="round-border" />

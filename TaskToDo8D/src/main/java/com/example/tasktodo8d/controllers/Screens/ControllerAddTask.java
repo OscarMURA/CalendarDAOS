@@ -42,7 +42,6 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         
     }
 
-
     /**
      * Activates or deactivates the periodic option for adding tasks.
      * If the periodic option is selected, it enables the end date, end calendar, label period, and periods options.
@@ -190,8 +189,8 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
     private boolean isHourValid(){
         boolean allow= true;
         try{
-            int hour=Integer.parseInt(this.hour.getValue());
-            int minutes=Integer.parseInt(this.minutes.getValue());
+            Integer.parseInt(this.hour.getValue());
+            Integer.parseInt(this.minutes.getValue());
             hourError.setVisible(false);
 
         }catch (Exception e){
@@ -200,7 +199,6 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
         }
         return allow;
     }
-
 
     /**
      * Checks if the date is valid.
@@ -226,9 +224,9 @@ public class ControllerAddTask extends BaseScreen implements Initializable  {
     private boolean isDateValid(DatePicker date){
         boolean allow= true;
         try{
-            int year=date.getValue().getYear();
-            int month=date.getValue().getMonthValue()-1;
-            int day=date.getValue().getDayOfMonth();
+            date.getValue().getYear();
+            date.getValue().getMonthValue();
+            date.getValue().getDayOfMonth();
             if(date==dateInit)
                 dateInitError.setVisible(false);
             if(date==endCalendar)

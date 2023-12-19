@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -184,7 +185,7 @@
             <HBox alignment="CENTER_LEFT" layoutX="75.0" layoutY="69.0" prefHeight="26.0" prefWidth="239.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="56.0" styleClass="text-color" text="Progress:" />
-                  <Rectangle fx:id="colorProgress" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" stroke="BLACK" strokeType="INSIDE" width="34.0" />
+                  <Circle fx:id="colorProgress" fill="DODGERBLUE" radius="12.0" stroke="#00000082" strokeType="INSIDE" />
                   <ImageView fitHeight="18.0" fitWidth="8.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="progressLabel" prefHeight="26.0" prefWidth="131.0" styleClass="text-color" text="Progress">
                      <font>

@@ -195,4 +195,9 @@
     -fx-background: transparent; /* Fondo transparente del menú emergente */
 }
 
+.rectangle2 {
+    -fx-fill: #555555; /* Color de relleno del rectángulo */
+    -fx-stroke: #1C1C1C; /* Color del borde del rectángulo */
+    -fx-stroke-width: 100; /* Ancho del borde del rectángulo */
+}
 

@@ -11,29 +11,29 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.text.SimpleDateFormat;
 
-
 /**
- * The ControllerTasks class represents the controller for tasks in the
+ * The ControllerTasks class represents the controller for currentTasks in the
  * application.
- * It is responsible for managing and handling tasks.
+ * It is responsible for managing and handling currentTasks.
  */
 public class ControllerTasks {
     /**
-     * The list of tasks.
+     * The list of currentTasks .
      */
-    private List<Task> tasks;
+    private List<Task> currentTasks;
+    private List<Task> allTasks;
+
     /**
-     * This class represents the controller for tasks in the application.
-     * It is responsible for managing and handling tasks.
+     * This class represents the controller for currentTasks in the application.
+     * It is responsible for managing and handling currentTasks.
      */
     private static ControllerTasks instance;
 
     private ControllerTasks() {
-        tasks = new ArrayList<>();
-        addTask("Work", "Work", "WORK", new GregorianCalendar(2023, 5, 1), "SINGLE_DAY", "#000080");
-        addTask("Play", "Play", "PERSONAL", new GregorianCalendar(2022, 5, 2), "SINGLE_DAY", "#FFFF00");
-        addTask("Health", "Health", "HEALTH", new GregorianCalendar(2021, 5, 3), "SINGLE_DAY", "#00FF00");
+        currentTasks = new ArrayList<>();
+        allTasks = new ArrayList<>();
     }
+
 
     public static ControllerTasks getInstance() {
         if (instance == null) {
@@ -57,8 +57,8 @@ public class ControllerTasks {
             String color) {
         boolean result;
         Task task = new Task(title, description, getCategory(category), date, getTimePeriod(timePeriod), color);
-        int insertionIndex = binarySearchInsertionIndex(tasks, task);
-        tasks.add(insertionIndex, task);
+        int insertionIndex = binarySearchInsertionIndex(currentTasks, task);
+        currentTasks.add(insertionIndex, task);
         result = true;
         return result;
     }
@@ -92,14 +92,16 @@ public class ControllerTasks {
     }
 
     /**
-     * The function performs a binary search on a sorted list of tasks to find the
+     * The function performs a binary search on a sorted list of currentTasks to
+     * find the
      * insertion index for a new task based on its date.
      * 
      * @param tasks   A list of Task objects, sorted in ascending order by date.
      * @param newTask The `newTask` parameter is an instance of the `Task` class.
      * @return The method is returning the index at which the newTask should be
-     *         inserted into the tasks list in order to maintain the sorted order
-     *         based on the date of the tasks.
+     *         inserted into the currentTasks list in order to maintain the sorted
+     *         order
+     *         based on the date of the currentTasks.
      */
     private int binarySearchInsertionIndex(List<Task> tasks, Task newTask) {
         int low = 0;
@@ -209,19 +211,19 @@ public class ControllerTasks {
     }
 
     public List<Task> Tasks() {
-        return tasks;
+        return currentTasks;
     }
 
     /**
      * The function "getTask" returns a Task object with a specific name from a list
-     * of tasks.
+     * of currentTasks.
      * 
      * @param name The name of the task that you want to retrieve.
      * @return The method is returning a Task object.
      */
     public Task getTask(String name) {
         Task result = null;
-        for (Task task : tasks) {
+        for (Task task : currentTasks) {
             if (task.getName().equals(name)) {
                 result = task;
             }
@@ -230,27 +232,30 @@ public class ControllerTasks {
     }
 
     /**
-     * The function removes all tasks that are the same as the given task from a
-     * list of tasks and returns true if any tasks were removed.
+     * The function removes all currentTasks that are the same as the given task
+     * from a
+     * list of currentTasks and returns true if any currentTasks were removed.
      * 
      * @param task The parameter "task" is of type Task, which represents a task
      *             object.
      * @return The method is returning a boolean value. It returns true if there
-     *         were tasks with the same properties as the given task that were
-     *         successfully removed from the list of tasks, and false if no tasks
+     *         were currentTasks with the same properties as the given task that
+     *         were
+     *         successfully removed from the list of currentTasks, and false if no
+     *         currentTasks
      *         were removed.
      */
     public boolean removeTaskRepeat(Task task) {
         List<Task> tasksSame = taskSame(task);
         for (Task task1 : tasksSame) {
-            tasks.remove(task1);
-
+            removeTask(task1);
         }
-        return tasksSame.size() > 0;
+        return tasksSame.size() == 0;
     }
 
     /**
-     * The function "taskSame" returns a list of tasks that are equal to a given
+     * The function "taskSame" returns a list of currentTasks that are equal to a
+     * given
      * task.
      * 
      * @param task The parameter "task" is an object of type "Task".
@@ -258,7 +263,7 @@ public class ControllerTasks {
      */
     public List<Task> taskSame(Task task) {
         List<Task> result = new ArrayList<>();
-        for (Task task1 : tasks) {
+        for (Task task1 : currentTasks) {
             if (task1.getName().equals(task.getName()) && task1.getDescription().equals(task.getDescription())
                     && task1.getCategory().equals(task.getCategory())
                     && task1.getTimePeriod().equals(task.getTimePeriod()) && task1.getColor().equals(task.getColor())) {
@@ -269,11 +274,13 @@ public class ControllerTasks {
     }
 
     /**
-     * The function searches for tasks that contain any of the given word keys and
-     * returns a list of matching tasks.
+     * The function searches for currentTasks that contain any of the given word
+     * keys and
+     * returns a list of matching currentTasks.
      * 
      * @param wordKeys The `wordKeys` parameter is a string that contains the
-     *                 keywords to search for in the tasks. These keywords are
+     *                 keywords to search for in the currentTasks. These keywords
+     *                 are
      *                 separated by spaces.
      * @return The method is returning a List of Task objects that match the search
      *         criteria specified by the wordKeys parameter.
@@ -284,10 +291,10 @@ public class ControllerTasks {
         String[] keys = wordKeys.split(" ");
 
         boolean found = false;
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < currentTasks.size(); i++) {
             for (int j = 0; j < keys.length && !found; j++) {
-                if (tasks.get(i).toString().toLowerCase().contains(keys[j])) {
-                    result.add(tasks.get(i));
+                if (currentTasks.get(i).toString().toLowerCase().contains(keys[j])) {
+                    result.add(currentTasks.get(i));
                     found = true;
                 }
             }
@@ -300,7 +307,7 @@ public class ControllerTasks {
      * The function modifies the properties of a task object based on the provided
      * parameters and returns a string indicating the changes made.
      * 
-     * @param name        The name of the task that you want to modify.
+     * @param taskModify  The task that you want to modify.
      * @param title       The new title for the task.
      * @param description The "description" parameter is a string that represents
      *                    the new description for the task.
@@ -330,7 +337,7 @@ public class ControllerTasks {
             task.setDescription(description);
             result += "- Description modified\n";
         }
-        if (category != null && !category.equals("") && !category.equals(task.getCategory()+"")) {
+        if (category != null && !category.equals("") && !category.equals(task.getCategory() + "")) {
             task.setCategory(getCategory(category));
             result += "- Category modified\n";
         }
@@ -338,9 +345,12 @@ public class ControllerTasks {
             task.setDate(date);
             result += "- Date modified\n";
         }
-        if (status != null && !status.equals("") && !status.equals(task.getStatus()+"")) {
+        if (status != null && !status.equals("") && !status.equals(task.getStatus() + "")) {
             task.setStatus(getStatus(status));
             result += "- Status modified\n";
+            if(status.equals("COMPLETED"))
+                allTasks.add(task);
+            
         }
 
         if (color != null && !color.equals("") && !color.equals(task.getColor())) {
@@ -349,18 +359,21 @@ public class ControllerTasks {
         }
         if (result.equals("")) {
             result = "No changes were made";
-        } else {
+        } else{
             result = "The following changes were made:\n" + result;
+            currentTasks.remove(task);
+            if(!status.equals("COMPLETED")) {
+            int insertionIndex = binarySearchInsertionIndex(currentTasks, task);
+            currentTasks.add(insertionIndex, task);
+            }
         }
-        tasks.remove(task);
-        int insertionIndex = binarySearchInsertionIndex(tasks, task);
-        tasks.add(insertionIndex, task);
 
         return result;
     }
 
     /**
-     * The function modifies a given task and updates all other tasks with the same
+     * The function modifies a given task and updates all other currentTasks with
+     * the same
      * name, description, category, and color.
      * 
      * @param taskModify  The task that needs to be modified.
@@ -368,7 +381,8 @@ public class ControllerTasks {
      * @param description The "description" parameter is a string that represents
      *                    the new description for the task.
      * @param category    The category parameter is a string that represents the
-     *                    category of the task. It is used to categorize tasks into
+     *                    category of the task. It is used to categorize
+     *                    currentTasks into
      *                    different groups or types.
      * @param date        The "date" parameter is a Calendar object representing the
      *                    new date for the task.
@@ -393,14 +407,138 @@ public class ControllerTasks {
                 task.setCategory(getCategory(category));
                 task.setColor(color);
             }
-            result =result+ "\n\n " + tasksSame.size() + " tasks were also modified ";
+            result = result + "\n\n " + tasksSame.size() + " currentTasks were also modified ";
         }
         return result;
     }
 
-    private String getDateAsString(Calendar date){
+    public boolean removeTask(Task task) {
+        boolean result = false;
+        result = currentTasks.remove(task); 
+        allTasks.remove(task);
+        return result;
+    }
+
+    private String getDateAsString(Calendar date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
         String dateS = format.format(date.getTime());
         return dateS;
     }
+
+    public List<Task> getTaskPeriod(String period) {
+        List<Task> result = new ArrayList<>();
+        Calendar date = Calendar.getInstance();
+        if (period.equalsIgnoreCase("Today")) {
+            for (Task task : currentTasks) {
+                if (areOnSameDay(task.getDate(), date)) {
+                    result.add(task);
+                }
+            }
+        } else if (period.equalsIgnoreCase("This week")) {
+            for (Task task : currentTasks) {
+                if (task.getDate().after(date)
+                        && task.getDate().get(Calendar.WEEK_OF_YEAR) == date.get(Calendar.WEEK_OF_YEAR)) {
+                    result.add(task);
+                }
+            }
+        } else if (period.equalsIgnoreCase("This month")) {
+            for (Task task : currentTasks) {
+                if (task.getDate().after(date) && task.getDate().get(Calendar.MONTH) == date.get(Calendar.MONTH)) {
+                    result.add(task);
+                }
+            }
+        }
+        return result;
+    }
+    public List<Task> getTaskCategory(String category,String typeList) {
+        List<Task> result = new ArrayList<>();
+        List<Task> storegeTask = new ArrayList<>();
+        if(typeList.equalsIgnoreCase(StorageTask.CURRENTS+""))
+            storegeTask=currentTasks;
+        else if(typeList.equalsIgnoreCase(StorageTask.ALL+"")){
+            storegeTask.addAll(allTasks);
+            storegeTask.addAll(currentTasks);
+        }
+        for (Task task : storegeTask) {
+            if (task.getCategory().toString().equalsIgnoreCase(category)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
+    public List<Task> getTaskStatus(String status,String typeList) {
+        List<Task> result = new ArrayList<>();
+         List<Task> storegeTask = new ArrayList<>();
+        if(typeList.equalsIgnoreCase(StorageTask.CURRENTS+""))
+            storegeTask=currentTasks;
+        else if(typeList.equalsIgnoreCase(StorageTask.ALL+"")){
+            storegeTask.addAll(allTasks);
+            storegeTask.addAll(currentTasks);
+        }
+        for (Task task : storegeTask) {
+            if (task.getStatus().toString().equalsIgnoreCase(status)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
+
+    private boolean areOnSameDay(Calendar date1, Calendar date2) {
+        return date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR) &&
+                date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH) &&
+                date1.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public List<Task> getTaskByDayExpiration(int days){
+        List<Task> result = new ArrayList<>();
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DAY_OF_MONTH, days);
+        for (Task task : currentTasks) {
+            if (task.getDate().before(date)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
+
+
+    public List<Task> getAllTasks(){
+        List<Task> result=new ArrayList<>();
+        result.addAll(allTasks);
+        result.addAll(currentTasks);
+        
+        return result;
+    }
+
+    public void saveData() {
+        FileManager.getInstance().saveData(this);
+    }
+
+    public void loadData() {
+        ControllerTasks controllerTasks = FileManager.getInstance().loadData();
+        if (controllerTasks != null) {
+            currentTasks = controllerTasks.currentTasks;
+            allTasks = controllerTasks.allTasks;
+        }
+        updateTask();
+    }
+
+    private void updateTask(){
+        List<Task> taskToChange=new ArrayList<>();
+        for(Task task:currentTasks){
+            if(task.getDate().before(Calendar.getInstance()) && task.getStatus()!=TaskStatus.COMPLETED){
+                task.setStatus(TaskStatus.NO_COMPLETED);
+                allTasks.add(task);
+                taskToChange.add(task);
+            }
+        }
+        for(Task task:taskToChange){
+            currentTasks.remove(task);
+        }
+    }
+
+
+
+
+
 }

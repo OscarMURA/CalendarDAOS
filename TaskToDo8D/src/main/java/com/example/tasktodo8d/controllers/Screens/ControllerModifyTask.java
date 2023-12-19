@@ -1,7 +1,6 @@
 package com.example.tasktodo8d.controllers.Screens;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
@@ -23,6 +22,7 @@ public class ControllerModifyTask extends BaseScreen implements Initializable {
      */
     @FXML
     private ComboBox<String> statusCombox;
+
     /**
      * Represents a task that is being modified.
      */
@@ -63,7 +63,6 @@ public class ControllerModifyTask extends BaseScreen implements Initializable {
     private void initStatusCombox() {
         statusCombox.getItems().addAll("TO_DO", "IN_PROGRESS", "CANCELED", "COMPLETED");
     }
-
     /**
      * The function updates the task modification fields with the values of the
      * currently displayed task.
@@ -80,7 +79,6 @@ public class ControllerModifyTask extends BaseScreen implements Initializable {
             updateDate();
         }
     }
-
     /**
      * The function "updateDate" updates the date and time values in a user
      * interface based on a given Calendar object.
@@ -105,8 +103,10 @@ public class ControllerModifyTask extends BaseScreen implements Initializable {
         Calendar date=Calendar.getInstance();
         date=getCalendar();
         boolean allow=dateValid(date);
+        System.out.println(allow);
         boolean thereChanges=taskShow.getName().equals(titleWrite.getText()) && taskShow.getDescription().equals(descriptions.getText()) && categoryOption.getValue().equals(taskShow.getCategory()+"") && taskShow.getColor().equals(colorToString(color.getValue()));
-        if(allow && (taskShow.getTimePeriod().equals(TimePeriod.SINGLE_DAY)) || thereChanges){
+        if(allow && (taskShow.getTimePeriod().equals(TimePeriod.SINGLE_DAY) || thereChanges)){
+            System.out.println("No debo entrar");
             changes=ControllerTasks.getInstance().modifyTask(taskShow, titleWrite.getText(), descriptions.getText(), categoryOption.getValue(), date,statusCombox.getValue(),colorToString(color.getValue())); 
         }else if(allow){
             boolean modifyOtherTask=ControllerAlerts.showConfirmation("You can only modify the name, description, category or color of the other tasks.","Do you want to modify the other tasks?");

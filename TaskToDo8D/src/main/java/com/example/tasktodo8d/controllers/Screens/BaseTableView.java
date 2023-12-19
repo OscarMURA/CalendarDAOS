@@ -1,11 +1,12 @@
 package com.example.tasktodo8d.controllers.Screens;
 
+import com.example.tasktodo8d.controllers.ControllerTaskToDo;
 import com.example.tasktodo8d.controllers.Mode;
 import com.example.tasktodo8d.controllers.Modeable;
 import com.example.tasktodo8d.model.Task;
+import com.example.tasktodo8d.model.TaskCategory;
 import com.example.tasktodo8d.model.TaskStatus;
 import com.example.tasktodo8d.model.TimePeriod;
-import com.example.tasktodo8d.controllers.ControllerTaskToDo;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -26,13 +27,13 @@ public abstract class BaseTableView implements Modeable {
     @FXML
     public BorderPane parent;
     @FXML
-    protected TableView tableTask;
+    protected TableView<Task> tableTask;
     @FXML
     protected TableColumn<Task, String> titleTC;
     @FXML
     protected TableColumn<Task, String> dateTC;
     @FXML
-    protected TableColumn<Task, ?> categoryTC;
+    protected TableColumn<Task, TaskCategory> categoryTC;
     @FXML
     protected TableColumn<Task, TimePeriod> periodsTC;
     @FXML
@@ -43,7 +44,7 @@ public abstract class BaseTableView implements Modeable {
      * Represents a rectangular shape in JavaFX.
      */
     @FXML
-    public Rectangle colorProgress;
+    public Circle colorProgress;
     /**
      * The progress label used in the base screen.
      */
@@ -75,7 +76,6 @@ public abstract class BaseTableView implements Modeable {
     protected Rectangle colorFig;
     protected Mode mode;
     protected boolean isRunning;
-
      /**
      * Displays the details of a given task on the screen.
      * If the task is not null, it sets the visibility and values of various UI
@@ -116,15 +116,15 @@ public abstract class BaseTableView implements Modeable {
      * Sets a custom cell factory for the color column to display a colored
      * rectangle based on the color value.
      */
-    protected void updateTableTask() {
-       titleTC.setCellValueFactory(new PropertyValueFactory("name"));
-       categoryTC.setCellValueFactory(new PropertyValueFactory("category"));
-       dateTC.setCellValueFactory(new PropertyValueFactory("dateString"));
-       statusTC.setCellValueFactory(new PropertyValueFactory("status"));
-       periodsTC.setCellValueFactory(new PropertyValueFactory("timePeriod"));
-       colorTC.setCellValueFactory(new PropertyValueFactory<>("color"));
-       columnsCellFactories(); 
-    }
+     protected void updateTableTask() {
+         titleTC.setCellValueFactory(new PropertyValueFactory<Task, String>("name"));
+         categoryTC.setCellValueFactory(new PropertyValueFactory<Task, TaskCategory>("category"));
+         dateTC.setCellValueFactory(new PropertyValueFactory<Task, String>("dateString"));
+         statusTC.setCellValueFactory(new PropertyValueFactory<Task, TaskStatus>("status"));
+         periodsTC.setCellValueFactory(new PropertyValueFactory<Task, TimePeriod>("timePeriod"));
+         colorTC.setCellValueFactory(new PropertyValueFactory<Task, String>("color"));
+         columnsCellFactories(); 
+     }
 
 
     protected void columnsCellFactories() {

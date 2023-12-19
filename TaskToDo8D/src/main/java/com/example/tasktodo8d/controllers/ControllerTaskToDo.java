@@ -262,6 +262,10 @@ public class ControllerTaskToDo implements Initializable, Modeable {
         loadScreen("addTask.fxml");
     }
 
+    public void consultsTasks(ActionEvent event) throws IOException {
+        loadScreen("consultsTasks.fxml");
+    }
+
     /**
      * Loads a screen specified by the given FXML file path and sets it as the
      * center content of the static panel.

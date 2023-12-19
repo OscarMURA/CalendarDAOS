@@ -1,5 +1,4 @@
 package com.example.tasktodo8d.controllers.Screens;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Calendar;
@@ -9,13 +8,11 @@ import java.time.LocalDate;
 import com.example.tasktodo8d.controllers.ControllerAlerts;
 import com.example.tasktodo8d.controllers.ControllerTaskToDo;
 import com.example.tasktodo8d.controllers.ControllerTasks;
-import com.example.tasktodo8d.controllers.Modeable;
 import com.example.tasktodo8d.model.Task;
 import com.example.tasktodo8d.model.TimePeriod;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -29,7 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-public abstract class BaseScreen extends BaseTableView implements Modeable {
+public abstract class BaseScreen extends BaseTableView  {
 
     /**
      * The text field for entering the title.
@@ -190,30 +187,26 @@ public abstract class BaseScreen extends BaseTableView implements Modeable {
         minutes.setValue("59");
         amPM.setValue("PM");
     }
-
     @Override
     protected void initComBoxes() {
         initCategoryOptions();
         initHourOptions();
     }
-
     @Override
     protected void initShowTask() {
         ObservableList<Task> tasks = FXCollections.observableArrayList(ControllerTasks.getInstance().Tasks());
         if (taskShow == null && !tasks.isEmpty()) {
             Task task = tasks.get(0);
-            this.taskShow = task;
+            BaseScreen.taskShow = task;
         }
     }
-
     @Override
     protected void selectionTask() {
         Task task = (Task) tableTask.getSelectionModel().getSelectedItem();
         if (task != null) {
-            this.taskShow = task;
+            BaseScreen.taskShow = task;
         }
     }
-
     public void selectEdit() {
         try {
             isRunning = false;
@@ -243,9 +236,10 @@ public abstract class BaseScreen extends BaseTableView implements Modeable {
                 if (removeRepeat && ControllerTasks.getInstance().taskSame(taskShow).size() > 1) {
                     ControllerTasks.getInstance().removeTaskRepeat(taskShow);
                 } else {
-                    ControllerTasks.getInstance().Tasks().remove(taskShow);
+                    ControllerTasks.getInstance().removeTask(taskShow);
                 }
             }
+            ControllerAlerts.showInformation("Action successfully");
             taskShow = null;
             updateTableTask();
             initShowTask();
@@ -263,7 +257,6 @@ public abstract class BaseScreen extends BaseTableView implements Modeable {
         }
         ObservableList<Task> tasks = FXCollections.observableArrayList(tasksControl);
         tableTask.setItems(tasks);
-        FilteredList<Task> filteredData = new FilteredList<>(tasks, p -> true);
         super.updateTableTask();
     }
 
@@ -309,6 +302,7 @@ public abstract class BaseScreen extends BaseTableView implements Modeable {
             dateInitError.setVisible(true);
             ControllerAlerts.errorContext("Please validate the date, it is before the current date");
             allow = false;
+            System.out.println(allow);
         }
         return allow;
     }
