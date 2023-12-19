@@ -1,0 +1,12 @@
+/* Cambios para el modo oscuro */
+.menu-bar.dark-mode {
+    -fx-background-color: #2b2b2b; /* Puedes ajustar este color según tus preferencias para el modo oscuro */
+}
+
+.menu-bar.dark-mode .label {
+    -fx-text-fill: #ffffff; /* Color del texto en modo oscuro */
+}
+
+.menu-item.dark-mode {
+    -fx-background-color: #2b2b2b; /* Puedes ajustar este color según tus preferencias para el modo oscuro */
+}
