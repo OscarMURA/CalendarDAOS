@@ -8,6 +8,7 @@ module com.example.tasktodo8d {
     requires com.almasb.fxgl.all;
     requires com.jfoenix;
     requires com.google.gson;
+    requires junit;
     opens com.example.tasktodo8d to javafx.fxml;
     exports com.example.tasktodo8d;
     exports com.example.tasktodo8d.controllers;

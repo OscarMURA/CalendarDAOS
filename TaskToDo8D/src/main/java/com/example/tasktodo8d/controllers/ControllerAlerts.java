@@ -1,13 +1,13 @@
 package com.example.tasktodo8d.controllers;
 
+import java.util.Optional;
+
+import com.example.tasktodo8d.AppTaskToDo;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.stage.StageStyle;
-
-import java.util.Optional;
-
-import com.example.tasktodo8d.AppTaskToDo;
 
 /**
  * The ControllerAlerts class provides methods for displaying different types of

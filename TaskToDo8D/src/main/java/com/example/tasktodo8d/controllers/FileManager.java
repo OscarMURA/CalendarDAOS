@@ -1,14 +1,34 @@
 package com.example.tasktodo8d.controllers;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 import com.google.gson.Gson;
 
-
-import java.io.*;
-
+/**
+ * The FileManager class is responsible for managing the file operations in the application.
+ * It provides methods to access and manipulate files and directories.
+ */
 public class FileManager {
 
     private static FileManager instance;
+    /**
+     * Represents a file in the file system.
+     */
     private File dataFolder;
+    /**
+     * Represents a file used for storing data tasks.
+     */
     private File dataTasks;
+    /**
+     * The FileManager class is responsible for managing the file operations in the application.
+     * It provides methods to access and manipulate files and directories.
+     */
     private FileManager() {
         File projectDir = new File(System.getProperty("user.dir"));
         dataFolder = new File(projectDir + "/data");
@@ -39,6 +59,12 @@ public class FileManager {
         }
     }
 
+    /**
+     * The function saves the data from the ControllerTasks object to a file using Gson library in Java.
+     * 
+     * @param controllerTasks The parameter `controllerTasks` is an object of type `ControllerTasks`.
+     * @return The method is returning a String. If the data is saved successfully, it will return "Data saved successfully". If there is an error while saving the data, it will return "Error saving data".
+     */
     public String saveData(ControllerTasks controllerTasks) {
         try {
             createResources();
@@ -56,6 +82,11 @@ public class FileManager {
         return "Data saved successfully";
     }
 
+    /**
+     * The function loads data from a file and returns a ControllerTasks object.
+     * 
+     * @return The method is returning an instance of the ControllerTasks class.
+     */
     public ControllerTasks loadData()  {
         ControllerTasks controllerTasks;
         try {

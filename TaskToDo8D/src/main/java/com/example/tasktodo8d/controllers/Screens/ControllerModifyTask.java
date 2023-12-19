@@ -97,16 +97,17 @@ public class ControllerModifyTask extends BaseScreen implements Initializable {
         this.amPM.setValue(amPM);
     }
 
+    /**
+     * The function `selectEdit()` modifies a task based on user input and displays a message with the changes made.
+     */
     @Override
     public void selectEdit(){
         String changes="";
         Calendar date=Calendar.getInstance();
         date=getCalendar();
         boolean allow=dateValid(date);
-        System.out.println(allow);
         boolean thereChanges=taskShow.getName().equals(titleWrite.getText()) && taskShow.getDescription().equals(descriptions.getText()) && categoryOption.getValue().equals(taskShow.getCategory()+"") && taskShow.getColor().equals(colorToString(color.getValue()));
         if(allow && (taskShow.getTimePeriod().equals(TimePeriod.SINGLE_DAY) || thereChanges)){
-            System.out.println("No debo entrar");
             changes=ControllerTasks.getInstance().modifyTask(taskShow, titleWrite.getText(), descriptions.getText(), categoryOption.getValue(), date,statusCombox.getValue(),colorToString(color.getValue())); 
         }else if(allow){
             boolean modifyOtherTask=ControllerAlerts.showConfirmation("You can only modify the name, description, category or color of the other tasks.","Do you want to modify the other tasks?");

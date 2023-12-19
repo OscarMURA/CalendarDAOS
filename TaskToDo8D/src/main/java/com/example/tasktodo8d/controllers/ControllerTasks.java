@@ -1,15 +1,14 @@
 package com.example.tasktodo8d.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import com.example.tasktodo8d.model.Task;
 import com.example.tasktodo8d.model.TaskCategory;
 import com.example.tasktodo8d.model.TaskStatus;
 import com.example.tasktodo8d.model.TimePeriod;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.text.SimpleDateFormat;
 
 /**
  * The ControllerTasks class represents the controller for currentTasks in the
@@ -412,6 +411,12 @@ public class ControllerTasks {
         return result;
     }
 
+    /**
+     * The function removes a task from both the currentTasks and allTasks lists and returns a boolean indicating whether the removal was successful.
+     * 
+     * @param task The "task" parameter is an object of type Task, which represents a task that needs to be removed.
+     * @return The method is returning a boolean value, which indicates whether the task was successfully removed from the currentTasks list.
+     */
     public boolean removeTask(Task task) {
         boolean result = false;
         result = currentTasks.remove(task); 
@@ -419,12 +424,24 @@ public class ControllerTasks {
         return result;
     }
 
+    /**
+     * The function takes a Calendar object and returns a formatted string representation of the date and time.
+     * 
+     * @param date The parameter "date" is a Calendar object representing a specific date and time.
+     * @return The method is returning a string representation of the provided Calendar date in the format "yyyy-MM-dd hh:mm a".
+     */
     private String getDateAsString(Calendar date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
         String dateS = format.format(date.getTime());
         return dateS;
     }
 
+    /**
+     * The function `getTaskPeriod` returns a list of tasks based on the specified period (Today, This week, or This month).
+     * 
+     * @param period The "period" parameter is a string that specifies the time period for which you want to retrieve tasks. It can have three possible values: "Today", "This week", or "This month".
+     * @return The method is returning a List of Task objects.
+     */
     public List<Task> getTaskPeriod(String period) {
         List<Task> result = new ArrayList<>();
         Calendar date = Calendar.getInstance();
@@ -450,6 +467,13 @@ public class ControllerTasks {
         }
         return result;
     }
+    /**
+     * The function "getTaskCategory" returns a list of tasks that belong to a specific category, based on the given category and type of task list.
+     * 
+     * @param category The category parameter is a string that represents the category of tasks you want to retrieve.
+     * @param typeList The typeList parameter is a string that specifies the type of task list to retrieve. It can have two possible values: "currents" or "all".
+     * @return The method is returning a List of Task objects that belong to the specified category.
+     */
     public List<Task> getTaskCategory(String category,String typeList) {
         List<Task> result = new ArrayList<>();
         List<Task> storegeTask = new ArrayList<>();
@@ -466,6 +490,13 @@ public class ControllerTasks {
         }
         return result;
     }
+    /**
+     * The function "getTaskStatus" returns a list of tasks with a specific status based on the given parameters.
+     * 
+     * @param status The "status" parameter is a string that represents the status of the tasks. It is used to filter the tasks based on their status.
+     * @param typeList The parameter "typeList" is a string that specifies the type of task list to search for. It can have two possible values: "currents" or "all".
+     * @return The method is returning a List<Task> containing tasks with a specific status.
+     */
     public List<Task> getTaskStatus(String status,String typeList) {
         List<Task> result = new ArrayList<>();
          List<Task> storegeTask = new ArrayList<>();
@@ -483,12 +514,25 @@ public class ControllerTasks {
         return result;
     }
 
+    /**
+     * The function checks if two Calendar objects represent the same day.
+     * 
+     * @param date1 A Calendar object representing the first date.
+     * @param date2 The above code defines a method named "areOnSameDay" that takes two Calendar objects as parameters: "date1" and "date2". The method checks if the two Calendar objects represent the same day by comparing their year, month, and day of the month values. If all three values
+     * @return The method is returning a boolean value, which indicates whether the two given Calendar objects represent the same day.
+     */
     private boolean areOnSameDay(Calendar date1, Calendar date2) {
         return date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR) &&
                 date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH) &&
                 date1.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH);
     }
 
+    /**
+     * The function returns a list of tasks that have an expiration date before a specified number of days from the current date.
+     * 
+     * @param days The "days" parameter represents the number of days from the current date that you want to check for task expiration.
+     * @return The method is returning a List of Task objects.
+     */
     public List<Task> getTaskByDayExpiration(int days){
         List<Task> result = new ArrayList<>();
         Calendar date = Calendar.getInstance();
@@ -502,6 +546,11 @@ public class ControllerTasks {
     }
 
 
+    /**
+     * The getAllTasks() function returns a list of all tasks, including both allTasks and currentTasks.
+     * 
+     * @return The method is returning a list of tasks.
+     */
     public List<Task> getAllTasks(){
         List<Task> result=new ArrayList<>();
         result.addAll(allTasks);
@@ -510,10 +559,16 @@ public class ControllerTasks {
         return result;
     }
 
+    /**
+     * The saveData() function saves the data of the current object using the FileManager class.
+     */
     public void saveData() {
         FileManager.getInstance().saveData(this);
     }
 
+    /**
+     * The function loads data from a file and updates the task list.
+     */
     public void loadData() {
         ControllerTasks controllerTasks = FileManager.getInstance().loadData();
         if (controllerTasks != null) {
@@ -523,6 +578,9 @@ public class ControllerTasks {
         updateTask();
     }
 
+    /**
+     * The function updates the status of tasks that are past their due date and moves them from the currentTasks list to the allTasks list.
+     */
     private void updateTask(){
         List<Task> taskToChange=new ArrayList<>();
         for(Task task:currentTasks){

@@ -123,6 +123,9 @@ public class ControllerConsultsTasks extends BaseTableView implements  Initializ
             this.taskShow = task;
         }
     }
+    /**
+     * The function activates or deactivates certain UI elements based on the selected radio buttons.
+     */
     private void activateRadioButtos(){
         if(!statusRadio.isSelected())
             statusCombox.setDisable(true);
@@ -150,6 +153,9 @@ public class ControllerConsultsTasks extends BaseTableView implements  Initializ
         }
     }
 
+    /**
+     * The `selectionSearch` function filters tasks based on selected criteria and updates the task list.
+     */
     public void selectionSearch(){
         String type=typeCombox.getSelectionModel().getSelectedItem();
         boolean status=statusRadio.isSelected();
@@ -205,6 +211,9 @@ public class ControllerConsultsTasks extends BaseTableView implements  Initializ
     }
 
 
+   /**
+    * The function `selectRemove()` removes a selected task from a table and updates the table display.
+    */
     public void selectRemove(){
         Task task = (Task) tableTask.getSelectionModel().getSelectedItem();
         if (task != null) {
