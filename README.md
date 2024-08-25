@@ -1,8 +1,8 @@
 
 
-# CalendarDAOS
+# TaskToDo8D
 
-CalendarDAOS is a desktop application developed in JavaFX for managing tasks and reminders. It allows users to easily add, view, and edit tasks. The application features a customizable user interface with support for both light and dark modes, using CSS for visual styling and FXML for content and structure.
+TaskToDo8D is a desktop application developed in JavaFX for managing tasks and reminders. It allows users to easily add, view, and edit tasks. The application features a customizable user interface with support for both light and dark modes, using CSS for visual styling and FXML for content and structure.
 
 This project was created with the support of a tech camp by Perficient, where I enhanced my skills in database management and persistence.
 
@@ -26,7 +26,7 @@ This project was created with the support of a tech camp by Perficient, where I 
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/OscarMURA/CalendarDAOS
+    git clone https://github.com/OscarMURA/TaskToDo8D
     ```
 
 2. **Open the project in your favorite IDE:**
